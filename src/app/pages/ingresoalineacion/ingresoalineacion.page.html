@@ -1,0 +1,237 @@
+<ion-header >
+  <ion-toolbar color="success" >
+    <ion-buttons slot="start">
+      <ion-back-button text="Atras" defaultHref="/inicio"></ion-back-button>
+  </ion-buttons>
+  <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+  <h5>
+    <ion-title size="undefined" align="center">Liga Deportiva Cantonal Pillaro</ion-title>
+  </h5>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+  <ion-item-group>
+    <ion-item>
+        <ion-label position="floating" ></ion-label>
+       <ion-select  placeholder="EQUIPOS" [(ngModel)]="idequipo" (ionChange)="cargarAlineacion()">
+         <ion-select-option *ngFor="let item of lista_equipos" value='{{item.idequipo1}}'>{{item.equipo1}}</ion-select-option>
+       </ion-select>
+      </ion-item>
+  </ion-item-group>
+
+<!--   //////////////////////ALINEACION////////////////////////////// -->
+<ion-grid>
+  <ion-row>
+   <ion-col style="background-color: rgb(96, 250, 82);" text-center>ALINEACIÓN</ion-col>
+  </ion-row>
+  <ion-row >
+    <ion-col>
+    
+      <ion-list >
+
+        <ion-item-sliding *ngFor="let item of listar_alineacion">
+          <ion-item > 
+            <ion-grid >
+              <ion-row>
+                <ion-col size="2">
+                  <ion-avatar>
+                <img [src]="url+item.fotos">  
+                  </ion-avatar>
+                
+                </ion-col>
+                <ion-col size="10">
+                 <ion-label class="ion-text-wrap">
+                   <ion-text color="primary" >  
+                     <h3 class="ion-text-uppercase" >{{item.NOMJUGADOR}}</h3>
+                     
+                   </ion-text>
+                   <ion-text>
+                     <h2>
+                        Cedula: {{item.cedula}}
+                     </h2>
+                   </ion-text>
+                   <ion-text color="#000000">
+                    <h2>Número de camiseta: {{item.N_camiseta}}</h2>
+                   </ion-text>
+                  
+              </ion-label>
+               </ion-col>
+              </ion-row>
+  
+            </ion-grid>  
+       </ion-item>  
+       <ion-item-options side="end">
+        <ion-item-option (click)="guardarFaltas('AMARILLA',item.idjugador)"  color="light" >
+          <ion-icon slot="icon-only" style="background-color: yellow;" ></ion-icon>Amarilla
+          </ion-item-option>
+        <ion-item-option (click)="guardarFaltas('ROJA',item.idjugador)"  color="light" >
+          <ion-icon color="danger" style="background: red;" slot="icon-only" ></ion-icon>Roja
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="start">
+          <ion-item-option  (click)="leerQr(item.cedula)" color="light">
+            <ion-icon name="checkmark-circle"  slot="icon-only" color="success" ></ion-icon>Verificar
+           <hr/>
+           
+          </ion-item-option>
+          <ion-item-option (click)="guardarGol(item.idjugador)" color="light">
+            <ion-icon  name="football"  slot="icon-only" color="dark"  ></ion-icon>Ingresar Gol
+           <hr/>
+           
+          </ion-item-option>
+        </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-col> 
+  </ion-row>
+</ion-grid>
+
+
+
+<!-- //////////////////////NO COMBOCADOS////////////////////////////// -->
+<ion-grid>
+  <ion-row>
+   <ion-col style="background-color: rgb(225, 250, 82);" text-center>CAMBIOS</ion-col>
+  </ion-row>
+  <ion-row >
+    <ion-col>
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of listar_cambios">
+          <ion-item > 
+            <ion-grid>
+              <ion-row>
+                <ion-col size="2">
+                  <ion-avatar>
+                <img [src]="url+item.fotos">
+                  </ion-avatar>
+                
+                </ion-col>
+                <ion-col size="10">
+                 <ion-label class="ion-text-wrap">
+                   <ion-text color="primary">  
+                     <h3 class="ion-text-uppercase" >{{item.nombre1+' '+item.nombre2+' '+item.apellido1+' '+item.apellido2 }}</h3>
+
+                   </ion-text>
+               </ion-label>
+               </ion-col>
+              </ion-row> 
+            </ion-grid>  
+       </ion-item>  
+
+          <ion-item-options side="end">
+            <ion-select *ngIf="listar_alineacionCombo.length>0" placeholder="CAMBIOS" [(ngModel)]="idJcambio"  (ionChange)="guardarCambios(item.idjugador)" >
+              <ion-select-option *ngFor="let item2 of listar_alineacionCombo" value="{{item2.idjugador}}" >{{item2.NOMJUGADOR}}</ion-select-option>
+            </ion-select>
+           </ion-item-options>
+           
+        </ion-item-sliding>
+        
+      </ion-list>
+    </ion-col>
+  
+   
+  </ion-row>
+  
+</ion-grid>
+ 
+
+
+<!-- //////////////////////CAMBIOS EN EL PARTIDO///////////////////////////// -->
+
+<ion-grid>
+  <ion-row>
+   <ion-col style="background-color: rgb(96, 250, 82);" text-center>ALINEACIÓN</ion-col>
+  </ion-row>
+  <ion-card *ngFor="let item of listar_cambiosR">
+
+
+<H5>SALIO</H5>
+  <ion-row >
+    <ion-col>
+      <ion-list >
+        <ion-item-sliding >
+          <ion-item > 
+            <ion-grid >
+              <ion-row>
+                <ion-col size="2">
+                  <ion-avatar>
+                <img [src]="url+item.fotoentra">  
+                  </ion-avatar>
+                
+                </ion-col>
+                <ion-col size="10">
+                 <ion-label class="ion-text-wrap">
+                   <ion-text color="primary" >  
+                     <h3 class="ion-text-uppercase" >{{item.ENTRA}}</h3>
+                   </ion-text>
+              </ion-label>
+               </ion-col>
+              </ion-row>
+  
+            </ion-grid>  
+       </ion-item>  
+
+        </ion-item-sliding>
+      </ion-list>
+    </ion-col> 
+  </ion-row>
+
+  <h5>ENTRO</h5>
+
+  <ion-row >
+    <ion-col>
+      <ion-list >
+        <ion-item-sliding >
+          <ion-item > 
+            <ion-grid >
+              <ion-row>
+                <ion-col size="2">
+                  <ion-avatar>
+                <img [src]="url+item.fotosale">  
+                  </ion-avatar>
+                
+                </ion-col>
+                <ion-col size="10">
+                 <ion-label class="ion-text-wrap">
+                   <ion-text color="primary" >  
+                     <h3 class="ion-text-uppercase" >{{item.SALE}}</h3>
+                   </ion-text>
+              </ion-label>
+               </ion-col>
+              </ion-row>
+  
+            </ion-grid>  
+       </ion-item>  
+       <ion-item-options side="end">
+        <ion-item-option (click)="guardarFaltas('AMARILLA',item.sale)"  color="light" >
+          <ion-icon slot="icon-only" style="background-color: yellow;" ></ion-icon>Amarilla
+          </ion-item-option>
+        <ion-item-option (click)="guardarFaltas('ROJA',item.sale)"  color="light" >
+          <ion-icon color="danger" style="background: red;" slot="icon-only" ></ion-icon>Roja
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="start">
+          <ion-item-option  (click)="leerQr( item.cedula, item.nombre1, item.apellido1)" color="light">
+            <ion-icon name="checkmark-circle"  slot="icon-only" color="success" ></ion-icon>Verificar
+           <hr/>
+           
+          </ion-item-option>
+          <ion-item-option (click)="guardarGol(item.sale)" color="light">
+            <ion-icon  name="football"  slot="icon-only" color="dark"  ></ion-icon>Ingresar Gol
+           <hr/>
+           
+          </ion-item-option>
+        </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-col> 
+  </ion-row>
+</ion-card>
+</ion-grid>
+
+</ion-content>

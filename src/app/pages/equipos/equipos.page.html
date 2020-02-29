@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="success">
+      <ion-buttons slot="start">
+          <ion-back-button text="Atras" defaultHref="/inicio"></ion-back-button>
+      </ion-buttons>
+      <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+       <ion-title size="undefined" align="center">Liga Deportiva Cantonal Pillaro</ion-title>
+  </ion-toolbar>
+  <!-- BUSCAR EQUIPOS -->
+ <ion-toolbar>
+    <ion-searchbar animated placeholder="Buscar por nombre"
+    (ionChange)="buscar($event)">  </ion-searchbar>
+
+ </ion-toolbar>
+</ion-header>
+
+<ion-content style="background-color: yellowgreen;">
+
+  <ion-list>
+    
+    <ion-grid>
+      <ion-label>FILTROS DE BUSQUEDA</ion-label>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item-group>
+            <ion-item>
+                <ion-label position="floating" ></ion-label>
+               <ion-select  placeholder="SERIE" [(ngModel)]="idserie" (ionChange)="cargarCategoria()">
+                 <ion-select-option *ngFor="let item of lista_serie" value='{{item.idserie}}'>{{item.nombreserie}}</ion-select-option>
+               </ion-select>
+              </ion-item>
+          </ion-item-group>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item-group>
+            <ion-item>
+              <ion-label position="floating" ></ion-label>
+               <ion-select placeholder="CATEGORIA" [(ngModel)]="idcategoria" (ionChange)="cargarEquipo()">
+                 <ion-select-option *ngFor="let item of lista_categoria" value='{{item.idcategoria}}'>{{item.nombre_cate}}</ion-select-option>
+               </ion-select>
+              </ion-item>
+        </ion-item-group>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+ 
+</ion-list>
+
+
+<!-- FIN FILTROS -->
+      <ion-list>
+           <ion-item *ngFor="let item of lista_equipos | buscador:buscarEquipo: 'nombreequipo'" (click)="MostarJugadoresyFaltas(item)"> 
+             <ion-grid>
+               <ion-row>
+                 <ion-col size="2">
+                   <ion-avatar>
+                    <img [src]="url+item.foto">
+                   </ion-avatar>
+                 
+                 </ion-col>
+                 <ion-col size="10">
+                  <ion-label class="ion-text-wrap">
+                    <ion-text color="primary">  
+                      <h3 class="ion-text-uppercase" >{{item.nombreequipo}}</h3>
+                    </ion-text>
+                    <ion-text color="#000000">
+                      <p>Presidente: Sr. {{item.nombredueno}}</p>
+                    </ion-text>
+                   
+                    <ion-text color="#000000">
+                      <p>Entrenador: Sr. {{item.nombreentrenador}}</p>
+                    </ion-text>
+               </ion-label>
+                </ion-col>
+               </ion-row>
+             </ion-grid>  
+        </ion-item>      
+    </ion-list>
+
+</ion-content>

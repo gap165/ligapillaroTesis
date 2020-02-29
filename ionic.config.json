@@ -1,0 +1,7 @@
+{
+  "name": "ligacantonalpillaro",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

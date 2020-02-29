@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="success">
+
+    <ion-buttons slot="start">
+      <ion-back-button text="Atras" defaultHref="/inicio"></ion-back-button>
+  </ion-buttons>
+  <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+  <ion-title size="undefined" align="center">Liga Deportiva Cantonal Pillaro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let item of liga"> 
+
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h2>Nombre Jugador: {{item.nombre1}} {{item.apellido1}} {{item.apellido2}}</h2>
+      </ion-text>
+            <ion-text>
+               <p>Fecha en calendario: {{item.fecha}}</p>
+             </ion-text>
+             <ion-text>
+              <p>Hora del gol: {{item.hora}}</p>
+          </ion-text>
+          </ion-label>
+     </ion-item>
+
+ </ion-list>
+</ion-content>

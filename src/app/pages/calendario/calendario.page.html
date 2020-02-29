@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="success">
+      <ion-buttons slot="start">
+          <ion-back-button text="Atras" defaultHref="/inicio"></ion-back-button>
+      </ion-buttons>
+      <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+      <ion-title size="undefined" align="center">Liga Deportiva Cantonal Pillaro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+          
+        <ion-item-group>
+            <ion-item>
+                <ion-label>TEMPORADAS</ion-label>
+               <ion-select [(ngModel)]="temporadas"  (ionChange)="cargarSeries()">
+                 <ion-select-option *ngFor="let item of lista_temporadas" value='{{item.idtemporada}}'>{{item.nombre_temporada}} </ion-select-option>
+               </ion-select>
+              </ion-item>
+
+              <ion-item>
+                  <ion-label>SERIES</ion-label>
+                 <ion-select *ngIf="lista_series.length > 0" [(ngModel)]="series" (ionChange)="cargarTemporadas()">
+                   <ion-select-option *ngFor="let item of lista_series" value='{{item.idserie}}'>{{item.nombreserie}} </ion-select-option>
+                 </ion-select>
+              </ion-item>
+
+                <ion-item>
+                    <ion-label>CATEGORIAS</ion-label>
+                   <ion-select *ngIf="lista_categorias.length > 0"  [(ngModel)]="categorias" (ionChange)="cargarCalendario()">
+                     <ion-select-option *ngFor="let item of lista_categorias" value='{{item.idcategoria}}'>{{item.nombre_cate}}</ion-select-option>
+                   </ion-select>
+              </ion-item>
+      </ion-item-group>
+      </ion-list>
+
+
+
+  <ion-grid style="background-color: #e9d35a;" >
+  <ion-row display style="background-color:#045323;">
+   <ion-col>
+        <h5  style="color: azure;" align="center"> LIGA DEPORTIVA CANTONAL PILLARO </h5>
+        
+  </ion-col>
+  </ion-row>
+  
+   <ion-row style="background-color:#045323;">
+     <ion-col>
+        <p  style="color: azure;" align="center"> PROGRAMACIÓN DE CAMPEONATO DE FUTBOL INSTITUCIONAL</p>                
+     </ion-col>
+   </ion-row>
+       <ion-row  style="background-color:#045323;">
+       <ion-col style="color: azure;" size="2">Hora</ion-col>
+       <ion-col style="color: azure;"  size="4">Equipo1</ion-col>           
+       <ion-col style="color: azure;" size="2">VS</ion-col>
+       <ion-col style="color: azure;" size="4">Equipo2</ion-col>
+   </ion-row>
+  
+   <ion-row *ngFor="let item of lista_calendario" style="background-color: #e9d35a;" (click)="ingresoCalendario(item)" >
+       <ion-col size="2">{{item.hora}}</ion-col>
+       <ion-col size="4">{{item.equipo1}}</ion-col>           
+       <ion-col size="2">VS</ion-col>
+       <ion-col size="4">{{item.equipo2}}</ion-col>
+   </ion-row>
+ 
+  </ion-grid>            
+
+
+</ion-content>

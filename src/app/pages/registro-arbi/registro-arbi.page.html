@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+    <ion-title size="undefined" align="center">Liga Deportiva Cantonal Pillaro</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content >
+ <div class="form-background">
+   <ion-label><h1>Crea una cuenta</h1></ion-label>
+  <ion-item>
+    <ion-label position="floating"  >CÉDULA</ion-label>
+    <ion-input type="text" [(ngModel)]="cedula" required>
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >NOMBRE</ion-label>
+    <ion-input type="text" [(ngModel)]="nombre" >
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >APELLIDO</ion-label>
+    <ion-input type="text" [(ngModel)]="apellido">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >DIRECCIÓN DEL DOMICILIO</ion-label>
+    <ion-input type="text" [(ngModel)]="direccion">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >TELEFONO</ion-label>
+    <ion-input type="text" [(ngModel)]="telefono">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >CELULAR</ion-label>
+    <ion-input type="text" [(ngModel)]="celular">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >CORREO ELECTRONICO</ion-label>
+    <ion-input type="text" [(ngModel)]="correo">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >USUARIO</ion-label>
+    <ion-input type="text">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" >CONTRASEÑA</ion-label>
+    <ion-input type="text">
+    </ion-input>
+  </ion-item>
+ 
+    <ion-button fill=outline color="success" expand="block" (click)="guardarArbitro()" ><b>REGISTRARTE</b></ion-button>
+    <ion-button  expand="block" fill="outline" color="danger" routerLink="/login" ><b>CANCELAR</b></ion-button>
+ 
+
+   
+   
+</div>
+</ion-content>
