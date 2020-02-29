@@ -125,7 +125,7 @@ faltasequipo(idequipo:string){
     return this.http.post('http://192.168.1.14/wsligapillaro/ajax/ligapillaro.php/?op=listTemporadas',JSON.stringify({
    }),{headers:headers});
   }
-  
+  //prueba de commit para github
   listsSeries(temporada:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
