@@ -14,19 +14,25 @@ export class CarnetjugadorPage implements OnInit {
 carnet=[];
 imagenqr;
 idjugador:string;
+nombreequipo:string;
+
 url="http://localhost/wsligapillaro/files/jugadores/";
+
   constructor(private storage:Storage, private webServicePillaro:WsLigaPillaroService,) { }
 
   ngOnInit() {
   
     this.storage.get('idjugador').then((data)=>{ 
       this.idjugador=data.idjugador;
+      this.nombreequipo=data.nombreequipo;
       
       this.webServicePillaro.presentLoading().then(()=>{
         this.webServicePillaro.carnet(this.idjugador).pipe(
+
           finalize(async () => {
               await this.webServicePillaro.loading.dismiss();
-              this.generaQR(data.idjugador);
+              console.log(data);
+              this.generaQR(data.idjugador, data.cedula, data.nombreJ, data.nombreequipo);
           }))
         .subscribe((data=>{
           let datos:any=data
@@ -42,8 +48,11 @@ url="http://localhost/wsligapillaro/files/jugadores/";
   }
 
    ////genera qr, llamo la funsion
-  generaQR(idjugador ){
-        this.webServicePillaro.generarQR(idjugador).pipe(
+  generaQR(idjugador,cedula, nombres, nombreequipo){
+ let texto=cedula+' '+nombres+' '+nombreequipo;
+ 
+
+         this.webServicePillaro.generarQR(texto).pipe(
           finalize(async () => {
               await this.webServicePillaro.loading.dismiss();
           }))

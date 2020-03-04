@@ -34,7 +34,6 @@
     "cordova-sqlite-storage": "^4.0.0",
     "core-js": "^2.5.4",
     "ionic": "^5.4.16",
-    "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -84,9 +83,6 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-qrscanner": {},
-      "phonegap-plugin-barcodescanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "26.+"
       },

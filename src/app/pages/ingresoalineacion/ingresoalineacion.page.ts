@@ -4,6 +4,9 @@ import { finalize } from "rxjs/operators";
 import { Storage } from "@ionic/storage";
 import { Platform } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { QRScannerStatus, QRScanner } from '@ionic-native/qr-scanner/ngx';
+
+
 
 @Component({
   selector: "app-ingresoalineacion",
@@ -37,6 +40,7 @@ export class IngresoalineacionPage implements OnInit {
     private webServicePillaro: WsLigaPillaroService,
     private storage: Storage,
     private platform: Platform,
+    private qrScanner: QRScanner,
     private barcodeScanner: BarcodeScanner
   ) {
 
@@ -372,34 +376,20 @@ export class IngresoalineacionPage implements OnInit {
           /* alert(data); console.log('datos correctos'); */
           let datos: any = data;
           if (datos.status == "Ok") {
-            this.webServicePillaro.presentToast("Datos del Jugador Validados con exito");
+            this.webServicePillaro.presentToast("Datos del Jugador Validados con exito"+datos);
 
             // alert(datos.mensaje);
           } else {
-            this.webServicePillaro.presentToast("Jugador no valido");
+            this.webServicePillaro.presentToast("Jugador no valido"+datos);
           }
 
         });
     });
   }
 
-  leerQr(cedula) {
+  leerQr(cedula, nombre1, apellido1) {
 
-    
-this.barcodeScanner.scan().then(barcodeData => {
-  if(barcodeData.text==cedula){
-    this.webServicePillaro.presentToast('VEERIFICADO')
-  }else{
-    this.webServicePillaro.presentToast('NO VERIFICADO')
-  }
-
-
- }).catch(err => {
-     console.log('Error', err);
- });
-
-
-   /*  this.qrScanner.prepare().
+ this.qrScanner.prepare().
     then((status: QRScannerStatus) => {
       if (status.authorized) {
         this.qrScanner.show();
@@ -420,12 +410,11 @@ this.barcodeScanner.scan().then(barcodeData => {
 
       }
     })
-    .catch((e: any) => console.log('Error is', e)); */
+    .catch((e: any) => console.log('Error is', e));
   }
 
   cambioJugador(idjugador){
-    console.log(idjugador+'-'+this.idJcambio);
-    
+    console.log(idjugador+'-'+this.idJcambio); 
   }
 
 

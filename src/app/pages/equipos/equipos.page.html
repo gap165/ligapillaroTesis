@@ -8,7 +8,7 @@
   </ion-toolbar>
   <!-- BUSCAR EQUIPOS -->
  <ion-toolbar>
-    <ion-searchbar animated placeholder="Buscar por nombre"
+    <ion-searchbar animated placeholder="Buscar por nombre de equipo"
     (ionChange)="buscar($event)">  </ion-searchbar>
 
  </ion-toolbar>
@@ -35,7 +35,7 @@
           <ion-item-group>
             <ion-item>
               <ion-label position="floating" ></ion-label>
-               <ion-select placeholder="CATEGORIA" [(ngModel)]="idcategoria" (ionChange)="cargarEquipo()">
+               <ion-select placeholder="CATEGORIA"  *ngIf="lista_categoria.length > 0"   [(ngModel)]="idcategoria" (ionChange)="cargarEquipo()">
                  <ion-select-option *ngFor="let item of lista_categoria" value='{{item.idcategoria}}'>{{item.nombre_cate}}</ion-select-option>
                </ion-select>
               </ion-item>
