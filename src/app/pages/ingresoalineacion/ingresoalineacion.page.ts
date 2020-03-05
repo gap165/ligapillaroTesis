@@ -67,9 +67,6 @@ export class IngresoalineacionPage implements OnInit {
 
   cargarEquipo(idcalendario) {
 
- 
-    
-
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
         .listarEquiposCaleE1(idcalendario)

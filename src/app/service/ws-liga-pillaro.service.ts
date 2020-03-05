@@ -125,8 +125,7 @@ faltasequipo(idequipo:string){
     return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listTemporadas',JSON.stringify({
    }),{headers:headers});
   }
-  //prueba de commit para github
-  
+
   listsSeries(temporada:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -135,8 +134,7 @@ faltasequipo(idequipo:string){
     'temporada':temporada
     }),{headers:headers});
   }
-
-    
+  
   listCategorias(temporada:string,serie:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -176,6 +174,24 @@ faltasequipo(idequipo:string){
     }),{headers:headers});
   }
 
+  listarEquiposInfE1(idcalendario:string){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listarEquiposInf1',JSON.stringify({
+    'idcalendario':idcalendario
+    }),{headers:headers});
+  }
+
+  listarEquiposInfE2(idcalendario:string){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listarEquiposInf2',JSON.stringify({
+    'idcalendario':idcalendario
+    }),{headers:headers});
+  }
+
   listarAlineacion(idcalendario:string, idequipo:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -195,7 +211,6 @@ faltasequipo(idequipo:string){
     'idequipo':idequipo
     }),{headers:headers});
   }
-
 
   listarCambios(idcalendario:string, idequipo:string){
     let headers = new HttpHeaders();
@@ -322,14 +337,18 @@ verificarJugador(idjugador: string, cedula: string, nombre1: string, apellido1: 
   return this.http.post(urlServerc, body, {responseType:'json'} );
 }
 
-insertaInforme( idarbitros:string, idcalendarioss:string, informe:string ){
+insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string, ganador:string,perdedor:string ,resultado:string ,puntos:string ){
   let headers = new HttpHeaders();
   headers = headers.set('Content-Type', 'application/json; charset=utf-8');
   headers = headers.set('Accept', 'application/json; charset=utf-8');
   return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarInforme',JSON.stringify({
-  'idarbitros':idarbitros,
+ /*  'idarbitros':idarbitros, */
   'idcalendarioss':idcalendarioss,
-  'informe':informe
+  'informe':informe,
+  'ganador':ganador,
+  'perdedor':perdedor,
+  'resultado':resultado,
+  'puntos':puntos
   }),{headers:headers});
 }
 

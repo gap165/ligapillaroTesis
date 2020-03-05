@@ -44,10 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/ingresoalineacion/ingresoalineacion.module').then( m => m.IngresoalineacionPageModule)
   },
  
-  {
-    path: 'ingresogoles',
-    loadChildren: () => import('./pages/ingresogoles/ingresogoles.module').then( m => m.IngresogolesPageModule)
-  },
+ 
   {
     path: 'ingresoinforme',
     loadChildren: () => import('./pages/ingresoinforme/ingresoinforme.module').then( m => m.IngresoinformePageModule)
@@ -60,10 +57,7 @@ const routes: Routes = [
     path: 'partidosjugados',
     loadChildren: () => import('./pages/partidosjugados/partidosjugados.module').then( m => m.PartidosjugadosPageModule)
   },
-  {
-    path: 'cambios',
-    loadChildren: () => import('./pages/cambios/cambios.module').then( m => m.CambiosPageModule)
-  },
+ 
   {
     path: 'registro-arbi',
     loadChildren: () => import('./pages/registro-arbi/registro-arbi.module').then( m => m.RegistroArbiPageModule)
