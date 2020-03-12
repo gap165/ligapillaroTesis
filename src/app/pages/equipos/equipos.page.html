@@ -12,42 +12,42 @@
     (ionChange)="buscar($event)">  </ion-searchbar>
 
  </ion-toolbar>
+    
+  <ion-grid>
+    <ion-label style="font-family:'Franklin Gothic Medium'">FILTROS</ion-label>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item-group>
+          <ion-item>
+              <ion-label position="floating" ></ion-label>
+             <ion-select  placeholder="SERIE" [(ngModel)]="idserie" (ionChange)="cargarCategoria()">
+               <ion-select-option *ngFor="let item of lista_serie" value='{{item.idserie}}'>{{item.nombreserie}}</ion-select-option>
+             </ion-select>
+            </ion-item>
+        </ion-item-group>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item-group>
+          <ion-item>
+            <ion-label position="floating" ></ion-label>
+             <ion-select placeholder="CATEGORIA"  *ngIf="lista_categoria.length > 0"   [(ngModel)]="idcategoria" (ionChange)="cargarEquipo()">
+               <ion-select-option *ngFor="let item of lista_categoria" value='{{item.idcategoria}}'>{{item.nombre_cate}}</ion-select-option>
+             </ion-select>
+            </ion-item>
+      </ion-item-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+<!-- FIN FILTROS -->
 </ion-header>
 
 <ion-content style="background-color: yellowgreen;">
 
-  <ion-list>
-    
-    <ion-grid>
-      <ion-label style="font-family:'Franklin Gothic Medium'">FILTROS</ion-label>
-      <ion-row>
-        <ion-col size="6">
-          <ion-item-group>
-            <ion-item>
-                <ion-label position="floating" ></ion-label>
-               <ion-select  placeholder="SERIE" [(ngModel)]="idserie" (ionChange)="cargarCategoria()">
-                 <ion-select-option *ngFor="let item of lista_serie" value='{{item.idserie}}'>{{item.nombreserie}}</ion-select-option>
-               </ion-select>
-              </ion-item>
-          </ion-item-group>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item-group>
-            <ion-item>
-              <ion-label position="floating" ></ion-label>
-               <ion-select placeholder="CATEGORIA"  *ngIf="lista_categoria.length > 0"   [(ngModel)]="idcategoria" (ionChange)="cargarEquipo()">
-                 <ion-select-option *ngFor="let item of lista_categoria" value='{{item.idcategoria}}'>{{item.nombre_cate}}</ion-select-option>
-               </ion-select>
-              </ion-item>
-        </ion-item-group>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
  
-</ion-list>
-
-
-<!-- FIN FILTROS -->
       <ion-list>
            <ion-item *ngFor="let item of lista_equipos | buscador:buscarEquipo: 'nombreequipo'" (click)="MostarJugadoresyFaltas(item)"> 
              <ion-grid>

@@ -25,6 +25,13 @@ export class WsLigaPillaroService {
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.get('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=ping', {headers: headers});
   }
+  perfilArbi(){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=perfilArbi',JSON.stringify({
+   }),{headers:headers});
+  }
 
   listaSerie(){
     let headers = new HttpHeaders();
@@ -77,6 +84,15 @@ faltasequipo(idequipo:string){
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=carnetJugador',JSON.stringify({
       'idjugador':idjugador
+    }),{headers:headers});
+  }
+
+  carnets(idequipo:string){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=carnets',JSON.stringify({
+      'idequipo':idequipo
     }),{headers:headers});
   }
 
@@ -321,23 +337,27 @@ generarQR( idjugador:string){
   body = body.set('idjugador', idjugador);
   return   this.http.post( urlServerc,  body  , {responseType:'json'} );
 }
+///###############GENERA QR EQUIPO#############################
+generarQRE( idequipo:string){
+  let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=generarQRE';
+  let body = new HttpParams();
+  body = body.set('idequipo', idequipo);
+  return   this.http.post( urlServerc,  body  , {responseType:'json'} );
+}
 
-verificarJugador(idjugador: string, cedula: string, nombre1: string, apellido1: string){
+verificarJugador(textoQR: string ){
   let urlServerc = 'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=verificarJugador';
   console.log(urlServerc);
   let body = new HttpParams(); 
-  body = body.set('idjugador', idjugador);
-  body = body.set('cedula', cedula);
-  body = body.set('nombre1', nombre1);
-  body = body.set('apellido1', apellido1);
-  console.log(idjugador);
-  console.log(cedula);
-  console.log(nombre1);
-  console.log(apellido1);
+  body = body.set('textoQR', textoQR);
+  
+  console.log(textoQR);
+ 
   return this.http.post(urlServerc, body, {responseType:'json'} );
 }
 
-insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string, ganador:string,perdedor:string ,resultado:string ,puntos:string ){
+insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string, 
+  equipo1:string, resultado1:string, puntos1:string, equipo2:string, resultado2:string, puntos2:string ){
   let headers = new HttpHeaders();
   headers = headers.set('Content-Type', 'application/json; charset=utf-8');
   headers = headers.set('Accept', 'application/json; charset=utf-8');
@@ -345,10 +365,12 @@ insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string, 
  /*  'idarbitros':idarbitros, */
   'idcalendarioss':idcalendarioss,
   'informe':informe,
-  'ganador':ganador,
-  'perdedor':perdedor,
-  'resultado':resultado,
-  'puntos':puntos
+  'equipo1':equipo1,
+  'resultado1':resultado1,
+  'puntos1':puntos1,
+  'equipo2':equipo2,
+  'resultado2':resultado2,
+  'puntos2':puntos2 
   }),{headers:headers});
 }
 

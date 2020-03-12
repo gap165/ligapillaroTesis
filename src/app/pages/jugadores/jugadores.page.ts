@@ -45,7 +45,7 @@ export class JugadoresPage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Jugadores',
       buttons: [{
-        text: 'Carnet del jugadore',
+        text: 'Carnet del jugador',
         icon: 'browsers',
        cssClass:'.color',
        

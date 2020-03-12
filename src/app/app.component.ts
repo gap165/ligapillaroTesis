@@ -25,9 +25,9 @@ export class AppComponent {
   public Paginas=[
     {title:'Inicio',url:'/inicio',icon:'home'},
     {title:'Perfil Arbitro',url:'/perfil-arbi',icon:'person'},
-    {title:'Equipos',url:'/equipos',icon:'people'},
     {title:'Calendario',url:'/calendario',icon:'calendar'},
-    {title:'Tabla de Posiciones',url:'/tablaposiciones',icon:'stats'},
+    {title:'Equipos',url:'/equipos',icon:'people'},
+   /*  {title:'Tabla de Posiciones',url:'/tablaposiciones',icon:'stats'}, */
     {title:'Lista de Goleadores',url:'/listagoleadores',icon:'football'},
     {title:'Cerrar Sesión',url:'/login',icon:'close-circle'}
 ];

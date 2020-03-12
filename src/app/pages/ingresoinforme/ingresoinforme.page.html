@@ -16,7 +16,7 @@
   <ion-item-group>
     <ion-item>
         <ion-label position="floating"></ion-label>
-       <ion-select  placeholder="EQUIPO 1" [(ngModel)]="ganador">
+       <ion-select  placeholder="EQUIPO 1" [(ngModel)]="equipo1">
          <ion-select-option *ngFor="let item of lista_equipos" value='{{item.idequipo1}}'>{{item.equipo1}}</ion-select-option>
        </ion-select>
       </ion-item>
@@ -27,7 +27,7 @@
   <ion-item-group>
     <ion-item>
         <ion-label position="floating" ></ion-label>
-       <ion-select  placeholder="EQUIPO 2" [(ngModel)]="perdedor" >
+       <ion-select  placeholder="EQUIPO 2" [(ngModel)]="equipo2" >
          <ion-select-option *ngFor="let item of lista_equipos" value='{{item.idequipo1}}'>{{item.equipo1}}</ion-select-option>
        </ion-select>
       </ion-item>
@@ -38,7 +38,7 @@
     <ion-col text-center>
       <ion-item>
         <ion-label position="floating"></ion-label>
-        <ion-select placeholder="RESULTADO" [(ngModel)]="resultado">
+        <ion-select placeholder="RESULTADO" [(ngModel)]="resultado1">
           <ion-select-option value="1">GANADO</ion-select-option>
           <ion-select-option value="2">PERDIDO</ion-select-option>
           <ion-select-option value="3">EMPATADO</ion-select-option>
@@ -48,7 +48,7 @@
     <ion-col text-center>
       <ion-item>
         <ion-label position="floating"></ion-label>
-        <ion-select placeholder="RESULTADO" [(ngModel)]="resultado">
+        <ion-select placeholder="RESULTADO" [(ngModel)]="resultado2">
           <ion-select-option value="1">GANADO</ion-select-option>
           <ion-select-option value="2">EMPATADO</ion-select-option>
           <ion-select-option value="3">PERDIDO</ion-select-option>
@@ -60,20 +60,20 @@
     <ion-col text-center>
       <ion-item>
         <ion-label position="floating"></ion-label>
-        <ion-select placeholder="PUNTOS" [(ngModel)]="puntos">
+        <ion-select placeholder="RESULTADO" [(ngModel)]="puntos1">
           <ion-select-option value="3">3 PUNTOS</ion-select-option>
-          <ion-select-option value="1">1 PUNTO</ion-select-option>
           <ion-select-option value="0">0 PUNTOS</ion-select-option>
+          <ion-select-option value="1">1 PUNTO</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
     <ion-col text-center>
       <ion-item>
         <ion-label position="floating"></ion-label>
-        <ion-select placeholder="PUNTOS" [(ngModel)]="puntos">
+        <ion-select placeholder="RESULTADO" [(ngModel)]="puntos2">
           <ion-select-option value="3">3 PUNTOS</ion-select-option>
-          <ion-select-option value="1">1 PUNTO</ion-select-option>
           <ion-select-option value="0">0 PUNTOS</ion-select-option>
+          <ion-select-option value="1">1 PUNTO</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
@@ -84,8 +84,9 @@
 
     <ion-item>
       <ion-label position="floating">INGRESAR INFORME</ion-label>
-      <ion-input type="text" [(ngModel)]="informe"></ion-input>
+      <ion-textarea name="comentarios" rows="10" cols="40" [(ngModel)]="informe"></ion-textarea>
+     
     </ion-item>
-    <ion-button  expand="block" fill="outline" type="submit" (click)="insertarInforme()">GUARDAR</ion-button>
+    <ion-button  expand="block" fill="outline" type="submit" (click)="insertarInforme()" routerLink="/calendario">GUARDAR</ion-button>
 
 </ion-content>

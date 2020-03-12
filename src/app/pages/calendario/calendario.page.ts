@@ -51,6 +51,7 @@ categorias:string;
         let datos:any=data
         if(datos.status=="Ok"){
           this.lista_series=datos.series;
+         
         }else{
           this.webServicePillaro.presentToast(datos.mensaje);
         }

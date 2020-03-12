@@ -16,36 +16,38 @@
 
 </ion-header>
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of liga | buscador:buscarFalta: 'nombrefalta'"> 
-       <ion-grid>
-          <ion-row>
-             <ion-col size="2">
-              
-                <ion-img [src]="url+item.fotos"></ion-img>
+   <ion-list>
+     <ion-card *ngFor="let item of liga | buscador:buscarFalta: 'nombrefalta'">
+      <ion-grid>
+         <ion-row>
+            <ion-col size="2">
              
-               
-             </ion-col>
-             <ion-col size="10">
-               <ion-label class="ion-text-wrap">
-                <!--  <ion-text color="primary">
-                  <h2 >{{item.nombre1}} {{item.nombre2}} 
-                    {{item.apellido1}} {{item.apellido2}}</h2>
-                 </ion-text> -->
-                 
-          <ion-text color="danger">
-          <h2>Tipo de Falta: {{item.nombrefalta}}</h2>
-          </ion-text>
-          <ion-text>
-          <p>Fecha de calendario: {{item.fecha}}</p>
-          </ion-text>
-          <ion-text>
-          <p>Hora de la falta: {{item.hora}}</p>
-         </ion-text>
-         </ion-label>
+               <ion-img [src]="url+item.fotos"></ion-img>
+            
+              
             </ion-col>
-          </ion-row>
-       </ion-grid>     
-     </ion-item>  
+            <ion-col size="10">
+              <ion-label class="ion-text-wrap">
+               <ion-text  color="primary">
+                 <h2 >{{item.nombre1}} {{item.nombre2}} 
+                   {{item.apellido1}} {{item.apellido2}}</h2>
+                </ion-text>
+                
+         <ion-text color="danger">
+         <h2>Tipo de Falta: {{item.nombrefalta}}</h2>
+         </ion-text>
+         <ion-text>
+         <p>Fecha de calendario: {{item.fecha}}</p>
+         </ion-text>
+         <ion-text>
+         <p>Hora de la falta: {{item.hora}}</p>
+        </ion-text>
+        </ion-label>
+           </ion-col>
+         </ion-row>
+      </ion-grid>
+     </ion-card>
+    
+     
  </ion-list>
 </ion-content>

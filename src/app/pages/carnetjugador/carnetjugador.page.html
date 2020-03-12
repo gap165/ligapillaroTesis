@@ -3,110 +3,107 @@
     <ion-buttons slot="start">
       <ion-back-button text=" " defaultHref="/inicio"></ion-back-button>
   </ion-buttons>
-   
+  <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
     <ion-title size="undefined" style="font-family:Times" align="center">Carnet del Jugador</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid style="background-color: rgb(215, 247, 142);" *ngFor="let item of carnet">
-    <ion-row>
-      <ion-col size="3">
-        <img src="../assets/icon/logoLiga.png">
-      </ion-col>
-      <ion-col size="9" text-center>
-       <h3>LIGA DE FÚTBOL PILLARO</h3> 
-       <ion-row>
-         <ion-col></ion-col>
-       </ion-row>
-        <ion-row>
-          <ion-col text-start size="12">
-          CATEGORIA:  {{item.nombre_cate}}
-          </ion-col>
-         
-          <ion-col text-start size="12">
-            SERIE: {{item.nombreserie}}
-          </ion-col>
-           </ion-row>
-      </ion-col>
-    </ion-row>
+  <ion-card *ngFor="let item of carnet">
 
+  <ion-grid style="background-color: rgb(215, 247, 142);" >
+   
+    <ion-row>
+      
+      <ion-col size="7" >
+        <ion-row class="ion-text-center">
+          <h4 style="font-family:Times">LIGA DE FÚTBOL PILLARO</h4> 
+        </ion-row>
+ 
+      <!--  <h6>
+        CATEGORIA:  {{item.nombre_cate}}   SERIE: {{item.nombreserie}}
+       </h6> -->
+     <ion-row class="ion-text-center">
+      <img  style="height: 2cm; width: 2cm;" src="../assets/icon/logoLiga.png">
+     </ion-row>
+      </ion-col>
+
+
+
+      <ion-col  size="5">
+          <img style="height: 130px;" src="data:image/png;base64,{{imagenqr}}"/>
+      </ion-col>
+     
+    </ion-row>
     <ion-row style="background-color: rgb(246, 253, 177);" >
    <ion-col size="9">
      <ion-row >
      <ion-col size="5">
-       <ion-text>
+       <ion-text style="font-family:Times">
         EQUIPO: 
        </ion-text>
    </ion-col>  
-     <ion-col size="7">
+     <ion-col style="font-family:Times" size="7">
       {{item.nombreequipo}}
      </ion-col>
-     
      </ion-row>
            <ion-row >
         <ion-col size="5">
-          <ion-text>
+          <ion-text style="font-family:Times">
             NOMBRES:
           </ion-text>
         </ion-col> 
-          <ion-col size="7">
+          <ion-col style="font-family:Times" size="7">
             {{item.nombre1}} {{item.nombre2}}
           </ion-col>
-            
        </ion-row>
-
        <ion-row >
         <ion-col size="5">
-          <ion-text>
+          <ion-text style="font-family:Times">
             APELLIDOS:
           </ion-text>
         </ion-col>
-          <ion-col size="7">
+          <ion-col style="font-family:Times" size="7">
             {{item.apellido1}} {{item.apellido2}}
-         
         </ion-col>
        </ion-row>
-
       <ion-row >
         <ion-col size="5">
-          <ion-text>
+          <ion-text style="font-family:Times">
             C.I.:
           </ion-text>
         </ion-col>
-          <ion-col size="7">
+          <ion-col style="font-family:Times" size="7">
             {{item.cedula}}
-         
         </ion-col>
       </ion-row>
-
       <ion-row >
         <ion-col size="5">
-          <ion-text>
-            FECHA DE NACIMIENTO:
+          <ion-text style="font-family:Times">
+            FECHA N.:
           </ion-text>
         </ion-col>
-          <ion-col size="7">
+          <ion-col style="font-family:Times" size="7">
             {{item.fechadenacimiento}}
          </ion-col>
        </ion-row>   
-
     </ion-col>
-    <ion-col size="3">
-      <ion-row size="5">
-        
-          <img style="height: 80px;"  src="data:image/png;base64,{{imagenqr}}"/>
-        </ion-row>
-        <br>
-        <ion-row>
-
+    <ion-col size="3" >
+      <ion-row> <br> </ion-row>
+         <ion-row>
        
           <ion-img style="height: 100px;" [src]="url+item.fotos"></ion-img>
         
       </ion-row>
-      
+      <ion-row  >
+         <ion-col style="font-family:Times" size="7">
+          <ion-text>N°:{{item.N_camiseta}}</ion-text>
+          
+        </ion-col>
+      </ion-row>
      
     </ion-col>
     </ion-row>
   </ion-grid>
+</ion-card>
 </ion-content>

@@ -17,10 +17,12 @@ export class IngresoinformePage implements OnInit {
   idarbitros:string="";
   idcalendarioss:string="";
   informe:string="";
-  ganador:string="";
-  perdedor:string="";
-  resultado:string="";
-  puntos:string="";
+  equipo1:string="";
+  resultado1:string="";
+  puntos1:string="";
+  equipo2:string="";
+  resultado2:string="";
+  puntos2:string="";
   
   constructor(
     private  webServicePillaro:WsLigaPillaroService,
@@ -31,10 +33,11 @@ export class IngresoinformePage implements OnInit {
     this.storage.get("calendario").then(calendario => {
       console.log(calendario);
       this.idcalendario = calendario.idcalendario;
+      this.idcalendarioss=calendario.idcalendario;
       this.cargarEquipos(calendario.idcalendario);
     });
-   
   }
+
   cargarEquipos(idcalendario){
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
@@ -78,34 +81,41 @@ export class IngresoinformePage implements OnInit {
   
   insertarInforme(){
    if(this.informe==''||
-    this.ganador==''||
-    this.perdedor==''||
-    this.resultado==''||
-    this.puntos=='' ){
+    this.equipo1==''||
+    this.resultado1==''||
+    this.puntos1==''||
+    this.equipo2==''||
+    this.resultado2==''||
+    this.puntos2==''
+    ){
       this.webServicePillaro.presentToast('LLENE TODOS LOS CAMPOS');
+      
 
    }else{
+
     this.webServicePillaro.presentLoading().then(()=>{
       
-      this.webServicePillaro.insertaInforme(/* this.idarbitros , */ this.idcalendario ,
-      this.informe , this.ganador , this.perdedor , this.resultado , this.puntos ).pipe(
+      this.webServicePillaro.insertaInforme(/* this.idarbitros , */ this.idcalendarioss ,this.informe,
+         this.equipo1,this.resultado1,this.puntos1,this.equipo2,this.resultado2,this.puntos2 ).pipe(
           finalize(async () => {
               // Hide the loading spinner on success or error
               await this.webServicePillaro.loading.dismiss();
           }))
         .subscribe((data=>{
           let datos:any=data
+          
           if(datos.status=="Ok"){
-            console.log(datos);
-            //SI SE INSERTO CORRECTAMENTE
+           
 
+       
+              this.informe==' ';
+              this.equipo1==' ';
+              this.resultado1==' ';
+              this.puntos1==' ';
+              this.equipo2==' ';
+              this.resultado2==' ';
+              this.puntos2==' ';
               this.webServicePillaro.presentToast(datos.mensaje);
-              this.informe=='';
-              this.ganador=='';
-              this.perdedor=='';
-              this.resultado=='';
-              this.puntos=='';
-
            
           }else{
             //SI HUBO UN ERROR AL INSERTAR

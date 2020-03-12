@@ -10,5 +10,38 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="form-background" *ngFor="let item of arbitro">
+    <ion-label><h1>PERFIL DEL ARBITRO</h1></ion-label>
+   <ion-item>
+     <ion-label>NOMBRE: </ion-label>
+     <ion-input type="text">{{item.nombre}} {{item.apellido}}
+     </ion-input>
+   </ion-item>
+   <ion-item>
+     <ion-label >CEDULA: </ion-label>
+     <ion-input type="text">{{item.cedula}}
+     </ion-input>
+   </ion-item>
+   <ion-item>
+     <ion-label>DIRECCIÓN: </ion-label>
+     <ion-input type="text">{{item.direccion}}
+     </ion-input>
+   </ion-item>
+   <ion-item>
+     <ion-label >TELEFONO: </ion-label>
+     <ion-input type="text">{{item.telefono}}
+     </ion-input>
+   </ion-item>
+   <ion-item>
+     <ion-label>CELULAR:</ion-label>
+     <ion-input type="text">{{item.celular}}
+     </ion-input>
+   </ion-item>
+   <ion-item>
+     <ion-label>CORREO: </ion-label>
+     <ion-input type="text">{{item.correo}}
+     </ion-input>
+   </ion-item>
+    </div>
+ 
 </ion-content>

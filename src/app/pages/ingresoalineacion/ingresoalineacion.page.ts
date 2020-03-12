@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { WsLigaPillaroService } from "src/app/service/ws-liga-pillaro.service";
 import { finalize } from "rxjs/operators";
 import { Storage } from "@ionic/storage";
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { QRScannerStatus, QRScanner } from '@ionic-native/qr-scanner/ngx';
 
@@ -41,7 +41,7 @@ export class IngresoalineacionPage implements OnInit {
     private storage: Storage,
     private platform: Platform,
     private qrScanner: QRScanner,
-    private barcodeScanner: BarcodeScanner
+    private alertController:AlertController
   ) {
 
     this.platform.backButton.subscribeWithPriority(0, () => {
@@ -179,17 +179,12 @@ export class IngresoalineacionPage implements OnInit {
                 
                           if (datos.status == "Ok") {
                             this.listar_cambiosR= datos.lCambiosR;
-                            
-                           
-                           
+                          
                           } else {
                             this.webServicePillaro.presentToast(datos.mensaje);
                           }
                         });
-                    });
-
-                  
-                    
+                    })
 
                   } else {
                     this.webServicePillaro.presentToast(datos.mensaje);
@@ -291,7 +286,7 @@ export class IngresoalineacionPage implements OnInit {
           if (datos.status == "Ok") {
             console.log(datos);
             this.webServicePillaro.presentToast(
-              "Falta ingresada correctamente"
+              "FALTA INGRESADA CORRECTAMENTE"
               
             );
 
@@ -317,11 +312,11 @@ export class IngresoalineacionPage implements OnInit {
           let datos: any = data;
           if (datos.status == "Ok") {
             console.log(datos);
-            this.webServicePillaro.presentToast("Gol ingresado correctamente");
+            this.webServicePillaro.presentToast("GOL INGRESADO CORRECTAMENTE");
 
             // alert(datos.mensaje);
           } else {
-            this.webServicePillaro.presentToast("Error al guardar");
+            this.webServicePillaro.presentToast(datos.mensaje);
           }
         });
     });
@@ -345,13 +340,13 @@ export class IngresoalineacionPage implements OnInit {
             let datos: any = data;
             if (datos.status == "Ok") {
               console.log(datos);
-              this.webServicePillaro.presentToast("Cambio Exitoso");
+              this.webServicePillaro.presentToast("CAMBIO EXITOSO");
               
               this.cargarCambiosRealizados(this.idJcambio, sale);
   
               // alert(datos.mensaje);
             } else {
-              this.webServicePillaro.presentToast("Error al realizar el cambio");
+              this.webServicePillaro.presentToast("ERROR AL REALIZAR EL CAMBIO");
             }
           });
       });
@@ -360,10 +355,10 @@ export class IngresoalineacionPage implements OnInit {
    
   }
 
-  verificarJ(idjugador, cedula, nombre1, apellido1) {
+  verificarJ(textoQR) {
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
-        .verificarJugador(idjugador, cedula, nombre1, apellido1)
+        .verificarJugador(textoQR)
         .pipe(
           finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
@@ -371,20 +366,18 @@ export class IngresoalineacionPage implements OnInit {
         )
         .subscribe(data => {
           /* alert(data); console.log('datos correctos'); */
-          let datos: any = data;
-          if (datos.status == "Ok") {
-            this.webServicePillaro.presentToast("Datos del Jugador Validados con exito"+datos);
+       
+        
+          this.alerta(data+textoQR);
+            /* this.webServicePillaro.presentToast(data+textoQR); */
 
-            // alert(datos.mensaje);
-          } else {
-            this.webServicePillaro.presentToast("Jugador no valido"+datos);
-          }
+       
 
-        });
+        }, error=>{alert(JSON.stringify(error));});
     });
   }
 
-  leerQr(cedula, nombre1, apellido1) {
+  leerQr(textoQR) {
 
  this.qrScanner.prepare().
     then((status: QRScannerStatus) => {
@@ -397,7 +390,7 @@ export class IngresoalineacionPage implements OnInit {
             document.getElementsByTagName('body')[0].style.opacity = '1';
             this.qrScanner.hide();
             this.scanSub.unsubscribe();
-            this.verificarJ(textFound, cedula, nombre1, apellido1 );
+            this.verificarJ(textFound);
           }, (err) => {
             alert(JSON.stringify(err));
           });
@@ -414,6 +407,16 @@ export class IngresoalineacionPage implements OnInit {
     console.log(idjugador+'-'+this.idJcambio); 
   }
 
+  async alerta(mensaje) {
+    const alert = await this.alertController.create({
 
+      header: 'Mensaje',
+      
+      message: mensaje,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
 }

@@ -91,7 +91,7 @@ cargarEquipo(){
     const actionSheet = await this.actionSheetController.create({
       header: 'Equipos',
       buttons: [{
-        text: 'Targetas de jugadores',
+        text: 'Faltas del equipo',
         icon: 'bookmarks',
        cssClass:'.color',
        
