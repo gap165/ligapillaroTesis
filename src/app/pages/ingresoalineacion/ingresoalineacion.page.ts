@@ -35,6 +35,7 @@ export class IngresoalineacionPage implements OnInit {
   entra:string;
   sale:string;
   listar_cambiosR=[];
+  numcambios=0;
   
   constructor(
     private webServicePillaro: WsLigaPillaroService,
@@ -262,7 +263,7 @@ export class IngresoalineacionPage implements OnInit {
           if (datos.status == "Ok") {
             this.listar_cambiosR= datos.lCambiosR;
             console.log(this.listar_cambiosR);
-            this.cargarCombo();
+            this.cargarAlineacion();
           } else {
             this.webServicePillaro.presentToast(datos.mensaje);
           }
@@ -274,7 +275,7 @@ export class IngresoalineacionPage implements OnInit {
   guardarFaltas(param, idjugadors) {
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
-        .insertarFaltas(param, idjugadors, this.idcalendario)
+        .insertarFaltas(param, idjugadors, this.idcalendario, this.idequipo)
         .pipe(
           finalize(async () => {
             // Hide the loading spinner on success or error
@@ -288,7 +289,9 @@ export class IngresoalineacionPage implements OnInit {
             this.webServicePillaro.presentToast(
               "FALTA INGRESADA CORRECTAMENTE"
               
-            );
+            ).then(()=>{
+              this.cargarAlineacion();
+            });
 
             // alert(datos.mensaje);
           } else {
@@ -301,7 +304,7 @@ export class IngresoalineacionPage implements OnInit {
   guardarGol(idjugadores) {
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
-        .insertarGol(idjugadores, this.idcalendario)
+        .insertarGol(idjugadores, this.idcalendario, this.idequipo)
         .pipe(
           finalize(async () => {
             // Hide the loading spinner on success or error
@@ -322,14 +325,13 @@ export class IngresoalineacionPage implements OnInit {
     });
   }
 
-  guardarCambios(sale){
+  guardarCambios(sale,entra){
 
-    if( this.idJcambio==''){
-      this.webServicePillaro.presentToast('NO SELECIONO UN JUGADOR');
-    }else{
+    if(this.numcambios<=3){
+
       this.webServicePillaro.presentLoading().then(() => {
         this.webServicePillaro
-          .insertarCambio(this.idcalendario, this.idJcambio, sale, 'cambio' )
+          .insertarCambio(this.idcalendario, entra, sale, 'cambio' )
           .pipe(
             finalize(async () => {
               // Hide the loading spinner on success or error
@@ -341,8 +343,9 @@ export class IngresoalineacionPage implements OnInit {
             if (datos.status == "Ok") {
               console.log(datos);
               this.webServicePillaro.presentToast("CAMBIO EXITOSO");
+              this.numcambios++;
               
-              this.cargarCambiosRealizados(this.idJcambio, sale);
+              this.cargarCambiosRealizados(entra, sale);
   
               // alert(datos.mensaje);
             } else {
@@ -350,7 +353,11 @@ export class IngresoalineacionPage implements OnInit {
             }
           });
       });
+
     }
+
+     
+    
 
    
   }

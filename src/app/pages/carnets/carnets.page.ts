@@ -32,7 +32,7 @@ url="http://localhost/wsligapillaro/files/jugadores/";
           finalize(async () => {
               await this.webServicePillaro.loading.dismiss();
               
-              this.generaQRE(data.cedula, data.nombreJ,data.N_camiseta, data.nombreequipo);
+              this.generaQR(data.cedula, data.nombreJ,data.N_camiseta,data.nombreequipo);
              
           }))
         .subscribe((data=>{
@@ -48,7 +48,7 @@ url="http://localhost/wsligapillaro/files/jugadores/";
     })
 }
    ////genera qr, llamo la funsion
-   generaQRE(cedula, nombres,N_camiseta, nombreequipo){
+   generaQR(cedula, nombres,N_camiseta, nombreequipo){
     let texto=cedula+' '+nombres+' '+N_camiseta+' '+nombreequipo;
     
    

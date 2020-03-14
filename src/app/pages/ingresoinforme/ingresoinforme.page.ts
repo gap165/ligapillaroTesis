@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { WsLigaPillaroService } from 'src/app/service/ws-liga-pillaro.service';
 import { finalize } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
+import { EquiposPage } from '../equipos/equipos.page';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { Storage } from '@ionic/storage';
 })
 export class IngresoinformePage implements OnInit {
   lista_equipos=[];
+  falatsequipo1=[];
+  faltasequipo2=[];
   idcalendario:string;
 
   @Input() item:any;
@@ -34,50 +37,80 @@ export class IngresoinformePage implements OnInit {
       console.log(calendario);
       this.idcalendario = calendario.idcalendario;
       this.idcalendarioss=calendario.idcalendario;
-      this.cargarEquipos(calendario.idcalendario);
-    });
-  }
+     
+      console.log(calendario);
+      this.equipo1=calendario.equipo1;
+      this.equipo2=calendario.equipo2;
+    
 
-  cargarEquipos(idcalendario){
-    this.webServicePillaro.presentLoading().then(() => {
-      this.webServicePillaro
-        .listarEquiposInfE1(idcalendario)
-        .pipe(
-          finalize(async () => {
-            await this.webServicePillaro.loading.dismiss();
-          })
-        )
-        .subscribe(data => {
-          let datos: any = data;
-          if (datos.status == "Ok") {
-            this.lista_equipos = datos.lEquiposInf;
+   
+        this.webServicePillaro
+          .golesEquipo(this.idcalendario, calendario.idequipo1, calendario.idequipo2)
+          .subscribe(data => {
+            let datos: any = data;
+    
+            if (datos.status == "Ok") {
+              this.resultado1=datos.gEquipo.equipo1;
+              this.resultado2=datos.gEquipo.equipo2;
 
-            // this.lista_equipos.push(datos.lEquipos[0]);
-            this.webServicePillaro.presentLoading().then(() => {
-              this.webServicePillaro
-                .listarEquiposInfE2(idcalendario)
-                .pipe(
-                  finalize(async () => {
-                    await this.webServicePillaro.loading.dismiss();
-                  })
-                )
+              if(this.resultado1>this.resultado2){
+                this.puntos1='GANADOR';
+                this.puntos2='PERDEDOR';
+              }else if(this.resultado1<this.resultado2){
+                this.puntos2='GANADOR';
+                this.puntos1='PERDEDOR';
+              }else if (this.resultado1==this.resultado2){
+                this.puntos2='EMPATE';
+                this.puntos1='EMPATE';
+              }
+
+                //###########faltas equipo 1
+
+                this.webServicePillaro
+                .faltasEquipo1(this.idcalendario, calendario.idequipo1)
                 .subscribe(data => {
                   let datos: any = data;
                   if (datos.status == "Ok") {
-                    this.lista_equipos.push(datos.lEquiposInf[0]);
-                    console.log(this.lista_equipos);
+                    console.log(datos);
+                    if(datos.faltas!='FALTAS'){
+                      this.falatsequipo1=datos.faltas;
+                    }
                    
+                    
+                    //##--falstas equipo 2
+
+                        this.webServicePillaro
+                        .faltasEquipo2(this.idcalendario, calendario.idequipo2)
+                        .subscribe(data => {
+                          let datos: any = data;
+                          if (datos.status == "Ok") {
+                            if(datos.faltas!='FALTAS'){
+                              this.faltasequipo2=datos.faltas;
+                            }
+                           
+                            console.log(datos);
+                          } else {
+                            this.webServicePillaro.presentToast(datos.mensaje);
+                          }
+                         });
+
+                        ///////////////////////
                   } else {
                     this.webServicePillaro.presentToast(datos.mensaje);
                   }
-                });
-            });
-          } else {
-            this.webServicePillaro.presentToast(datos.mensaje);
-          }
-        });
+                 });
+                ///////////////////////////////
+              
+            } else {
+              this.webServicePillaro.presentToast(datos.mensaje);
+            }
+         
+      });
+
     });
   }
+
+ 
   
   insertarInforme(){
    if(this.informe==''||
@@ -105,9 +138,6 @@ export class IngresoinformePage implements OnInit {
           let datos:any=data
           
           if(datos.status=="Ok"){
-           
-
-       
               this.informe==' ';
               this.equipo1==' ';
               this.resultado1==' ';
@@ -124,9 +154,8 @@ export class IngresoinformePage implements OnInit {
         }));
   })
    }
-     
-  
 
 }
+
 
 }

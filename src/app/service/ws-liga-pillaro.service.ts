@@ -161,6 +161,36 @@ faltasequipo(idequipo:string){
     }),{headers:headers});
   }
 
+  golesEquipo(idcalendario:string,idequipo1:string,idequipo2:string){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=golesEquipo',JSON.stringify({
+    'idcalendario':idcalendario,
+    'idequipo1':idequipo1,
+    'idequipo2':idequipo2
+    }),{headers:headers});
+  }
+  faltasEquipo1(idcalendario:string,idequipo:string){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=faltasEquipo1',JSON.stringify({
+    'idcalendario':idcalendario,
+    'idequipo':idequipo,
+
+    }),{headers:headers});
+  }
+faltasEquipo2(idcalendario:string,idequipo:string){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=faltasEquipo2',JSON.stringify({
+    'idcalendario':idcalendario,
+    'idequipo':idequipo
+    }),{headers:headers});
+  }
+
   listCalendario(temporada:string,serie:string,idcategoria:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -337,13 +367,6 @@ generarQR( idjugador:string){
   body = body.set('idjugador', idjugador);
   return   this.http.post( urlServerc,  body  , {responseType:'json'} );
 }
-///###############GENERA QR EQUIPO#############################
-generarQRE( idequipo:string){
-  let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=generarQRE';
-  let body = new HttpParams();
-  body = body.set('idequipo', idequipo);
-  return   this.http.post( urlServerc,  body  , {responseType:'json'} );
-}
 
 verificarJugador(textoQR: string ){
   let urlServerc = 'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=verificarJugador';
@@ -355,6 +378,16 @@ verificarJugador(textoQR: string ){
  
   return this.http.post(urlServerc, body, {responseType:'json'} );
 }
+
+listarDatosInforme(idcalendario:string){
+  let headers = new HttpHeaders();
+  headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+  headers = headers.set('Accept', 'application/json; charset=utf-8');
+  return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listarDatosInforme',JSON.stringify({
+  'idcalendario':idcalendario
+  }),{headers:headers});
+}
+
 
 insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string, 
   equipo1:string, resultado1:string, puntos1:string, equipo2:string, resultado2:string, puntos2:string ){
@@ -402,20 +435,22 @@ insertarArbitro( cedula:string, nombre:string, apellido:string, direccion:string
   }),{headers:headers});
 } */
 
-public  insertarFaltas( nombrefalta:string, idjugadors:string, idcalendarios:string){
+public  insertarFaltas( nombrefalta:string, idjugadors:string, idcalendarios:string, equipo:string){
   let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarFaltas';
   let body = new HttpParams();
 
   body = body.set('nombrefalta', nombrefalta);
   body = body.set('idjugadors', idjugadors);
-  body =  body.set('idcalendarios', idcalendarios)
+  body =  body.set('idcalendarios', idcalendarios);
+  body =  body.set('equipo', equipo);
   return   this.http.post( urlServerc, body , {responseType:'json'}  );
 }
-public  insertarGol(idjugadores:string, idcalendarios:string){
+public  insertarGol(idjugadores:string, idcalendarios:string, equipo: string){
   let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarGol';
   let body = new HttpParams();
   body = body.set('idjugadores', idjugadores);
-  body =  body.set('idcalendarios', idcalendarios)
+  body =  body.set('idcalendarios', idcalendarios);
+  body =  body.set('equipo', equipo);
   return   this.http.post( urlServerc, body , {responseType:'json'}  );
 }
 

@@ -13,6 +13,7 @@ import { ListagoleadoresPage } from './pages/listagoleadores/listagoleadores.pag
 import { TablaposicionesPage } from './pages/tablaposiciones/tablaposiciones.page';
 import { InicioPage } from './pages/inicio/inicio.page';
 import { Title } from '@angular/platform-browser';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent {
     {title:'Cerrar Sesión',url:'/login',icon:'close-circle'}
 ];
 /* fin-menu */
-usuario='demo';
+usuario='';
+
 
   constructor(
     private platform: Platform,
@@ -51,7 +53,7 @@ usuario='demo';
   }
 
    consultausuario(){
-    this.usuario='Usuario: Arbitro'
+   
 
    }
 }

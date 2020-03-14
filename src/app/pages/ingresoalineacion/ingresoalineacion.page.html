@@ -123,9 +123,10 @@
        </ion-item>  
 
           <ion-item-options side="end">
-            <ion-select *ngIf="listar_alineacionCombo.length>0" placeholder="CAMBIOS" [(ngModel)]="idJcambio"  (ionChange)="guardarCambios(item.idjugador)" >
-              <ion-select-option *ngFor="let item2 of listar_alineacionCombo" value="{{item2.idjugador}}" >{{item2.NOMJUGADOR}}</ion-select-option>
-            </ion-select>
+
+            <ion-list *ngFor="let item2 of listar_alineacionCombo">
+              <ion-label (click)="guardarCambios(item.idjugador,item2.idjugador)">{{item2.NOMJUGADOR}}</ion-label>
+            </ion-list>
            </ion-item-options>
            
         </ion-item-sliding>
