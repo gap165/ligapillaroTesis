@@ -342,24 +342,19 @@ export class IngresoalineacionPage implements OnInit {
             let datos: any = data;
             if (datos.status == "Ok") {
               console.log(datos);
-              this.webServicePillaro.presentToast("CAMBIO EXITOSO");
+              this.webServicePillaro.presentToast('CAMBIO EXITOSO');
               this.numcambios++;
-              
               this.cargarCambiosRealizados(entra, sale);
   
               // alert(datos.mensaje);
             } else {
-              this.webServicePillaro.presentToast("ERROR AL REALIZAR EL CAMBIO");
+              this.webServicePillaro.presentToast('ERROR AL REALIZAR EL CAMBIO');
             }
           });
       });
 
     }
 
-     
-    
-
-   
   }
 
   verificarJ(textoQR) {

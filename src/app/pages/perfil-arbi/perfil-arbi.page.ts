@@ -17,9 +17,11 @@ export class PerfilArbiPage implements OnInit {
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage) { }
 
   ngOnInit() {
-/*     this.storage.get('idarbitro').then((data)=>{
-      this.idarbitro=data.idarbitro; */
-
+      this.storage.get('usuarioArbi').then((usuario)=>{
+        this.idarbitro=usuario.idarbitro;
+        console.log(usuario);
+  
+      });
       this.webServicePillaro.presentLoading().then(()=>{
         this.webServicePillaro.perfilArbi().pipe(
           finalize(async () => {

@@ -26,6 +26,7 @@ export class IngresoinformePage implements OnInit {
   equipo2:string="";
   resultado2:string="";
   puntos2:string="";
+
   
   constructor(
     private  webServicePillaro:WsLigaPillaroService,
@@ -33,10 +34,17 @@ export class IngresoinformePage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.storage.get('usuarioArbi').then((usuario)=>{
+      this.idarbitros=usuario.idarbitro;
+      console.log(usuario);
+
+    });
+    
     this.storage.get("calendario").then(calendario => {
       console.log(calendario);
       this.idcalendario = calendario.idcalendario;
       this.idcalendarioss=calendario.idcalendario;
+    
      
       console.log(calendario);
       this.equipo1=calendario.equipo1;
@@ -125,10 +133,10 @@ export class IngresoinformePage implements OnInit {
       
 
    }else{
-
+   
     this.webServicePillaro.presentLoading().then(()=>{
       
-      this.webServicePillaro.insertaInforme(/* this.idarbitros , */ this.idcalendarioss ,this.informe,
+      this.webServicePillaro.insertaInforme(/* this.idarbitros, */  this.idcalendarioss ,this.informe,
          this.equipo1,this.resultado1,this.puntos1,this.equipo2,this.resultado2,this.puntos2 ).pipe(
           finalize(async () => {
               // Hide the loading spinner on success or error

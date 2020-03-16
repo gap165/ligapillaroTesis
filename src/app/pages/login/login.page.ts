@@ -11,7 +11,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class LoginPage implements OnInit {
   ping:any;
-  usuario:string='0919125906';
+  usuario:string='1805347356';
   clave:string='123';
   
   Datos:any=[]

@@ -17,7 +17,7 @@
   <ion-content>
   
       <ion-card *ngFor="let item of liga | buscador:buscarJugador: 'nombreJ'" (click)="MostarGolesyHuella(item)">
-         
+       
           <ion-grid>
 
            <ion-row>
@@ -33,7 +33,7 @@
              <ion-col size="9">
               <ion-label class="ion-text-wrap">
                 <ion-text color="primary">
-                  <h2>Representante: {{item.nombreR}} {{item.nequipo}}</h2>
+                  <h2>Representante: {{item.nombreR}} </h2>
               </ion-text>
                   <ion-text color="dark" >
                       <h2>Jugador: {{item.nombreJ}}</h2>
@@ -53,12 +53,10 @@
                           <ion-text color="medium">
                               <p>Telefono Fijo: {{item.telefono}}</p>
                             </ion-text>
-                            <!-- <ion-text color="medium">
+                            <ion-text color="medium">
                               <p>N° camiseta: {{item.N_camiseta}}</p>
-                            </ion-text> -->
-                           <!--  <ion-text  color="medium">
-                              <p>N equipo: {{item.nombreequipo}}</p>
-                            </ion-text> -->
+                            </ion-text>
+                          
                             
              </ion-label>
             </ion-col>

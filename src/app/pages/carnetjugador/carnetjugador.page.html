@@ -10,12 +10,18 @@
 
 <ion-content>
   <ion-card *ngFor="let item of carnet">
+    
 
   <ion-grid style="background-color: rgb(215, 247, 142);" >
    
     <ion-row>
       
       <ion-col size="7" >
+        
+        <ion-row class="ion-text-center">
+          <img  style="height: 2cm; width: 2cm;" src="../assets/icon/logoLiga.png">
+         </ion-row>
+
         <ion-row class="ion-text-center">
           <h4 style="font-family:Times">LIGA DE FÚTBOL PILLARO</h4> 
         </ion-row>
@@ -23,12 +29,8 @@
       <!--  <h6>
         CATEGORIA:  {{item.nombre_cate}}   SERIE: {{item.nombreserie}}
        </h6> -->
-     <ion-row class="ion-text-center">
-      <img  style="height: 2cm; width: 2cm;" src="../assets/icon/logoLiga.png">
-     </ion-row>
+    
       </ion-col>
-
-
 
       <ion-col  size="5">
           <img style="height: 130px;" src="data:image/png;base64,{{imagenqr}}"/>

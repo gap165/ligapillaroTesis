@@ -70,9 +70,10 @@ idcategoria:string;
         let datos:any=data
         if(datos.status=="Ok"){
           this.goleadores=datos.Goleadores;
+          this.webServicePillaro.presentToast('DATOS CARGADOS');
           console.log(this.goleadores);
         }else{
-          this.webServicePillaro.presentToast(datos.mensaje);
+          this.webServicePillaro.presentToast('NO EXISTEN GOLEADORES');
         }
       }));
     });
