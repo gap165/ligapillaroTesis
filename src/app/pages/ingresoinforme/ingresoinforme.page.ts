@@ -15,6 +15,7 @@ export class IngresoinformePage implements OnInit {
   falatsequipo1=[];
   faltasequipo2=[];
   idcalendario:string;
+  fecha:string;
 
   @Input() item:any;
   idarbitros:string="";
@@ -22,10 +23,10 @@ export class IngresoinformePage implements OnInit {
   informe:string="";
   equipo1:string="";
   resultado1:string="";
-  puntos1:string="";
+  puntos1:string="0";
   equipo2:string="";
   resultado2:string="";
-  puntos2:string="";
+  puntos2:string="0";
 
   
   constructor(
@@ -35,7 +36,7 @@ export class IngresoinformePage implements OnInit {
 
   ngOnInit() {
     this.storage.get('usuarioArbi').then((usuario)=>{
-      this.idarbitros=usuario.idarbitro;
+      this.idarbitros=usuario.datos.idarbitro;
       console.log(usuario);
 
     });
@@ -44,6 +45,7 @@ export class IngresoinformePage implements OnInit {
       console.log(calendario);
       this.idcalendario = calendario.idcalendario;
       this.idcalendarioss=calendario.idcalendario;
+      this.fecha=calendario.fecha;
     
      
       console.log(calendario);
@@ -136,7 +138,7 @@ export class IngresoinformePage implements OnInit {
    
     this.webServicePillaro.presentLoading().then(()=>{
       
-      this.webServicePillaro.insertaInforme(/* this.idarbitros, */  this.idcalendarioss ,this.informe,
+      this.webServicePillaro.insertaInforme( this.idarbitros,   this.idcalendarioss ,this.informe, this.fecha,
          this.equipo1,this.resultado1,this.puntos1,this.equipo2,this.resultado2,this.puntos2 ).pipe(
           finalize(async () => {
               // Hide the loading spinner on success or error

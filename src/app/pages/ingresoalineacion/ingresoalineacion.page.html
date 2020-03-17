@@ -133,9 +133,24 @@
 
           <ion-item-options side="end">
 
-            <ion-list *ngFor="let item2 of listar_alineacionCombo">
-              <ion-label (click)="guardarCambios(item.idjugador,item2.idjugador)">{{item2.NOMJUGADOR}}</ion-label>
-            </ion-list>
+           <ion-grid>
+             <ion-row>
+<ion-col size="5"></ion-col> 
+<ion-col size="7"><b>LISTA DE JUGADORES</b></ion-col>
+             </ion-row>
+             <ion-row>
+               <ion-col size="3"></ion-col>
+               <ion-col size="9">
+                <ion-list *ngFor="let item2 of listar_alineacionCombo">
+                  <ion-label (click)="guardarCambios(item.idjugador,item2.idjugador)">{{item2.NOMJUGADOR}}</ion-label>
+                </ion-list>
+               </ion-col>
+             
+             </ion-row>
+           </ion-grid> 
+            
+           
+            
            </ion-item-options>
            
         </ion-item-sliding>
@@ -158,7 +173,6 @@
   </ion-row>
   
   <ion-card *ngFor="let item of listar_cambiosR">
-
 
 <H5>SALIO</H5>
   <ion-row >

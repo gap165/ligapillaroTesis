@@ -3,97 +3,146 @@
     <ion-buttons slot="start">
       <ion-back-button text=" " defaultHref="/inicio"></ion-back-button>
   </ion-buttons>
-    <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+  <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
     <ion-title size="undefined" style="font-family:Times" align="center">Ingreso del informe</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card>
+<ion-toolbar>
+  <ion-thumbnail slot="start"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
+    
+    <ion-title size="small" style="font-family:Times" align="center">LIGA DEPORTIVA CANTONAL PILLARO</ion-title>
+    <br>
+    <ion-title size="small" style="font-family:Times" align="center">INFORME DE ÁRBITRO</ion-title>
+  </ion-toolbar>
+  <ion-card> 
 <ion-grid>
+  <ion-label style="display:none;" >{{idarbitros}}</ion-label>
+<ion-row style="background-color: rgb(236, 250, 255);"><ion-col text-center>
+  
+  <ion-label text-center><b>FECHA DEL PARTIDO: {{fecha}}</b></ion-label>
+</ion-col></ion-row>
 
-  <ion-row >
-    <ion-col text-center>
-      <b >EQUIPOS</b>
-    </ion-col>
+  <ion-row style="background-color: rgb(156, 217, 238);">
+       
+    <ion-col text-center size="5"><b>EQUIPO 1</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>EQUIPO 2</b></ion-col>
+    
+  
+  </ion-row>
+  
+  <ion-row style="background-color: rgb(236, 250, 255);">
+    <ion-col text-center size="5">{{equipo1}}</ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5">{{equipo2}}</ion-col>
+   
   </ion-row>
 
-  <ion-row>
-    <ion-col text-center>
-       <ion-label text-center >{{equipo1}}</ion-label>
-    </ion-col>
-  <ion-col text-center> 
-        <ion-label>{{equipo2}}</ion-label>
-    </ion-col>
+  <ion-row style="background-color: rgb(156, 217, 238);">
+       
+    <ion-col text-center size="5"><b>MARCADOR</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>MARCADOR</b></ion-col>
+    
+  
+  </ion-row>
+  <ion-row style="background-color: rgb(236, 250, 255);">
+    <ion-col text-center size="5">{{resultado1}}</ion-col>
+    <ion-col text-center size="2"> </ion-col>
+    <ion-col text-center size="5">{{resultado2}}</ion-col>
+   
+  </ion-row>
+  <ion-row style="background-color: rgb(156, 217, 238);">
+       
+    <ion-col text-center size="5"><b>RESULTADO</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>RESULTADO</b></ion-col>
+    
+  
+  </ion-row>
+  <ion-row style="background-color: rgb(236, 250, 255);">
+    <ion-col  size="5" text-center>{{puntos1}}</ion-col>
+    <ion-col size="2"></ion-col>
+    <ion-col  size="5" text-center>{{puntos2}}</ion-col>
+   
   </ion-row>
 
-  <ion-row >
-    <ion-col text-center>
-      <b >MARCADOR</b>
-    </ion-col>
+  <ion-row style="background-color: rgb(156, 217, 238);">
+
+    <ion-col text-center ><b>TARJETAS DEL PARTIDO</b></ion-col>     
   </ion-row>
 
-  <ion-row>
-    <ion-col text-center>
+  <ion-row style="background-color: rgb(156, 217, 238);">
+    <ion-col text-center size="5"><b>EQUIPO 1</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>EQUIPO 2</b></ion-col>
+  </ion-row>
+
+  <ion-row style="background-color: rgb(236, 250, 255);">
+
+   <ion-col size="5">
+    <ion-row  *ngFor="let item of falatsequipo1">
+      <ion-col>
       
-     {{resultado1}}
+        <ion-row >
+          <ion-col  text-center size="small">
+            {{item.nombre}}
+          </ion-col>
+          <ion-col  text-center  size="small">
+            {{item.nombrefalta}}
+          </ion-col>
+        </ion-row>
+
     </ion-col>
-    <ion-col text-center>
+    </ion-row>
+  </ion-col>
+  <ion-col size="2"></ion-col>
+
+<!-- FALTAS EQUIPO 2 -->
+  <ion-col size="5">
+    <ion-row>
+      <ion-col>
       
-     {{resultado2}}
+        <ion-row  *ngFor="let item of faltasequipo2">
+          <ion-col  text-center size="small">
+            {{item.nombre}}
+          </ion-col>
+          <ion-col  text-center size="small">
+            {{item.nombrefalta}}
+          </ion-col>
+        </ion-row>
     </ion-col>
+    </ion-row>
+  </ion-col>
   </ion-row>
+
   <ion-row >
-    <ion-col text-center>
-      <b >RESULTADO</b>
+
+    <ion-item >
+      <ion-label position="floating">OBSERVACIONES</ion-label>
+      <ion-textarea  name="comentarios" rows="10" cols="40" [(ngModel)]="informe"></ion-textarea>
+    </ion-item>
+
+  </ion-row>
+
+  </ion-grid>
+
+
+
+   
+  </ion-card>
+    <ion-button color="success" expand="block" fill="outline" type="submit"  (click)="insertarInforme()">GUARDAR INFORME</ion-button>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-button color="danger"  expand="block" fill="outline" type="submit" > GOLES </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button color="danger" expand="block" fill="outline" type="submit" > TARJETAS </ion-button>
     </ion-col>
     
   </ion-row>
-  <ion-row>
-    <ion-col text-center>
-     {{puntos1}}
-    </ion-col>
-    <ion-col text-center>
-     {{puntos2}}
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-list>  <ion-col text-center>
-      <ion-item *ngFor="let item of falatsequipo1">
-        <ion-row>
-          {{item.nombre}}
-        </ion-row>
-        <ion-row>
-          {{item.nombrefalta}}
-        </ion-row>
-       
-    </ion-item>
-    </ion-col></ion-list>
-    <ion-list><ion-col text-center>
-
-
-      <ion-item *ngFor="let item of faltasequipo2">
-        <ion-row>
-          {{item.nombre}}
-        </ion-row>
-        <ion-row>
-          {{item.nombrefalta}}
-        </ion-row>
-      </ion-item>
-          
-          </ion-col></ion-list>
-  
-
-
-  </ion-row>
 </ion-grid>
-
-    <ion-item>
-      <ion-label position="floating">INGRESAR INFORME</ion-label>
-      <ion-textarea name="comentarios" rows="10" cols="40" [(ngModel)]="informe"></ion-textarea>
-     
-    </ion-item>
-  </ion-card>
-    <ion-button  expand="block" fill="outline" type="submit"  (click)="insertarInforme()">GUARDAR</ion-button>
-
 </ion-content>

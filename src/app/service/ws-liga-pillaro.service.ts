@@ -389,15 +389,16 @@ listarDatosInforme(idcalendario:string){
 }
 
 
-insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string, 
+insertaInforme(  idarbitros:string,  idcalendarioss:string, informe:string, fecha:string,
   equipo1:string, resultado1:string, puntos1:string, equipo2:string, resultado2:string, puntos2:string ){
   let headers = new HttpHeaders();
   headers = headers.set('Content-Type', 'application/json; charset=utf-8');
   headers = headers.set('Accept', 'application/json; charset=utf-8');
   return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarInforme',JSON.stringify({
- /*  'idarbitros':idarbitros, */
+ 'idarbitros':idarbitros, 
   'idcalendarioss':idcalendarioss,
   'informe':informe,
+  'fecha':fecha,
   'equipo1':equipo1,
   'resultado1':resultado1,
   'puntos1':puntos1,
@@ -407,7 +408,7 @@ insertaInforme( /* idarbitros:string, */ idcalendarioss:string, informe:string,
   }),{headers:headers});
 }
 
-insertarArbitro( cedula:string, nombre:string, apellido:string, direccion:string, telefono:string,  celular:string, correo:string){
+insertarArbitro( cedula:string, nombre:string, apellido:string, direccion:string, telefono:string,  celular:string, correo:string, password:string){
   let headers = new HttpHeaders();
   headers = headers.set('Content-Type', 'application/json; charset=utf-8');
   headers = headers.set('Accept', 'application/json; charset=utf-8');
@@ -418,7 +419,8 @@ insertarArbitro( cedula:string, nombre:string, apellido:string, direccion:string
   'direccion': direccion,
   'telefono': telefono,
   'celular': celular,
-  'correo': correo
+  'correo': correo,
+  'password':password
   }),{headers:headers});
 }
 

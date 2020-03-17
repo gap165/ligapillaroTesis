@@ -20,6 +20,7 @@ direccion:string="";
 telefono:string="";
 celular:string="";
 correo:string="";
+password:string="";
   constructor(private storage: Storage, private webServicePillaro:WsLigaPillaroService) { }
 
   ngOnInit() {
@@ -40,7 +41,7 @@ correo:string="";
       }
       else{
         this.webServicePillaro.presentLoading().then(()=>{
-          this.webServicePillaro.insertarArbitro(this.cedula , this.nombre , this.apellido , this.direccion , this.telefono , this.celular , this.correo).pipe(
+          this.webServicePillaro.insertarArbitro(this.cedula , this.nombre , this.apellido , this.direccion , this.telefono , this.celular , this.correo, this.password).pipe(
               finalize(async () => {
                   // Hide the loading spinner on success or error
                   await this.webServicePillaro.loading.dismiss();
