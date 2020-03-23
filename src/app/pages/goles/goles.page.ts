@@ -31,7 +31,7 @@ idjugador:string;
             console.log(datos)
            this.liga=datos.golJ
           }else{
-            this.webServicePillaro.presentToast(datos.mensaje);
+            this.webServicePillaro.presentToast('');
           }
         }));
       });

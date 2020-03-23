@@ -16,7 +16,7 @@ idequipo:string;
 idjugador:string;
 nombreequipo:string;
 
-url="http://localhost/wsligapillaro/files/jugadores/";
+url="http://192.168.1.3/wsligapillaro/files/jugadores/";
   constructor(private storage:Storage, private webServicePillaro:WsLigaPillaroService) { }
 
   ngOnInit() {
@@ -49,7 +49,7 @@ url="http://localhost/wsligapillaro/files/jugadores/";
 }
    ////genera qr, llamo la funsion
    generaQR(cedula, nombres,N_camiseta, nombreequipo){
-    let texto=cedula+' '+nombres+' '+N_camiseta+' '+nombreequipo;
+    let texto=cedula+' Jugador: '+nombres+' N° camiseta: '+N_camiseta+' Equipo: '+nombreequipo;
     
    
             this.webServicePillaro.generarQR(texto).pipe(

@@ -16,7 +16,7 @@ export class JugadoresPage implements OnInit {
   idequipo:string;
   nequipo:string;
   buscarJugador="";
-  url="http://localhost/wsligapillaro/files/jugadores/";
+  url="http://192.168.1.3/wsligapillaro/files/jugadores/";
   constructor(private storage:Storage,private webServicePillaro:WsLigaPillaroService,private routes:NavController, private actionSheetController:ActionSheetController ) { }
 
   ngOnInit() {

@@ -3,6 +3,7 @@ import { WsLigaPillaroService } from 'src/app/service/ws-liga-pillaro.service';
 import { finalize } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { EquiposPage } from '../equipos/equipos.page';
+import { AlertController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -14,6 +15,8 @@ export class IngresoinformePage implements OnInit {
   lista_equipos=[];
   falatsequipo1=[];
   faltasequipo2=[];
+  golesequipo1=[];
+  golesequipo2=[];
   idcalendario:string;
   fecha:string;
 
@@ -22,16 +25,19 @@ export class IngresoinformePage implements OnInit {
   idcalendarioss:string="";
   informe:string="";
   equipo1:string="";
-  resultado1:string="";
+  resultado1:string="EMPATE";
   puntos1:string="0";
   equipo2:string="";
-  resultado2:string="";
+  nombre_cancha="";
+  resultado2:string="EMPATE";
   puntos2:string="0";
 
   
   constructor(
     private  webServicePillaro:WsLigaPillaroService,
-    private storage: Storage 
+    private storage: Storage,
+    private alertController:AlertController,
+    private routes:NavController
     ) { }
 
   ngOnInit() {
@@ -51,6 +57,7 @@ export class IngresoinformePage implements OnInit {
       console.log(calendario);
       this.equipo1=calendario.equipo1;
       this.equipo2=calendario.equipo2;
+      this.nombre_cancha=calendario.nombre_cancha;
     
 
    
@@ -74,6 +81,8 @@ export class IngresoinformePage implements OnInit {
                 this.puntos1='EMPATE';
               }
 
+
+           
                 //###########faltas equipo 1
 
                 this.webServicePillaro
@@ -105,6 +114,40 @@ export class IngresoinformePage implements OnInit {
                          });
 
                         ///////////////////////
+                        //##--goless equipo 1
+
+                       /*  this.webServicePillaro
+                        .golesEquipo1(this.idcalendario, calendario.idequipo1)
+                        .subscribe(data => {
+                          let datos: any = data;
+                          if (datos.status == "Ok") {
+                            if(datos.goles!='GOLES'){
+                              this.golesequipo1=datos.goles;
+                            }
+                           
+                            console.log(datos);
+                          } else {
+                            this.webServicePillaro.presentToast(datos.mensaje);
+                          }
+                         }); */
+
+                           //##--goless equipo 2
+
+                        /* this.webServicePillaro
+                        .golesEquipo2(this.idcalendario, calendario.idequipo2)
+                        .subscribe(data => {
+                          let datos: any = data;
+                          if (datos.status == "Ok") {
+                            if(datos.goles!='GOLES'){
+                              this.golesequipo2=datos.goles;
+                            }
+                           
+                            console.log(datos);
+                          } else {
+                            this.webServicePillaro.presentToast(datos.mensaje);
+                          }
+                         });
+ */
                   } else {
                     this.webServicePillaro.presentToast(datos.mensaje);
                   }
@@ -112,7 +155,7 @@ export class IngresoinformePage implements OnInit {
                 ///////////////////////////////
               
             } else {
-              this.webServicePillaro.presentToast(datos.mensaje);
+       /*        this.webServicePillaro.presentToast(''); */
             }
          
       });
@@ -155,7 +198,9 @@ export class IngresoinformePage implements OnInit {
               this.equipo2==' ';
               this.resultado2==' ';
               this.puntos2==' ';
-              this.webServicePillaro.presentToast(datos.mensaje);
+
+              this.alerta(datos.mensaje);
+              /* this.webServicePillaro.presentToast(datos.mensaje); */
            
           }else{
             //SI HUBO UN ERROR AL INSERTAR
@@ -165,6 +210,24 @@ export class IngresoinformePage implements OnInit {
   })
    }
 
+}
+async alerta(mensaje) {
+  const alert = await this.alertController.create({
+
+    header: 'Mensaje',
+    
+    message: mensaje,
+    buttons: [
+  
+    {
+      text: 'ACEPTAR',
+      handler: () => {
+        this.routes.navigateForward('calendario');
+      }
+    }]
+  });
+
+  await alert.present();
 }
 
 

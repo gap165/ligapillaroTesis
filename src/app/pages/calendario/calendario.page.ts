@@ -16,11 +16,18 @@ lista_series=[];
 lista_categorias=[];
 lista_calendario=[];
 series:string;
+idarbitros:string;
 categorias:string;
 
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage, private actionSheetController: ActionSheetController, private routes:NavController ) { }
 
   ngOnInit() {
+    this.storage.get('usuarioArbi').then((usuario)=>{
+      this.idarbitros=usuario.datos.idarbitro;
+      console.log(usuario);
+
+    });
+    
 
     this.webServicePillaro.presentLoading().then(()=>{
       this.webServicePillaro.listTemporadas().pipe(
@@ -90,6 +97,7 @@ categorias:string;
         let datos:any=data
         console.log(datos);
         if(datos.status=="Ok"){
+        
           this.lista_calendario=datos.calendarios;
         }else{
           this.webServicePillaro.presentToast(datos.mensaje);

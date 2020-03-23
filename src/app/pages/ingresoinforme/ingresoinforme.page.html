@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="success">
     <ion-buttons slot="start">
-      <ion-back-button text=" " defaultHref="/inicio"></ion-back-button>
+      <ion-back-button text=" " defaultHref="/calendario"></ion-back-button>
   </ion-buttons>
   <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
     <ion-title size="undefined" style="font-family:Times" align="center">Ingreso del informe</ion-title>
@@ -22,6 +22,10 @@
 <ion-row style="background-color: rgb(236, 250, 255);"><ion-col text-center>
   
   <ion-label text-center><b>FECHA DEL PARTIDO: {{fecha}}</b></ion-label>
+
+</ion-col></ion-row>
+<ion-row style="background-color: rgb(236, 250, 255);"><ion-col text-center>
+  <ion-label text-center><b>ESTADIO: {{nombre_cancha}}</b></ion-label>
 </ion-col></ion-row>
 
   <ion-row style="background-color: rgb(156, 217, 238);">
@@ -69,6 +73,57 @@
    
   </ion-row>
 
+  <!-- goles -->
+
+  <!-- <ion-row style="background-color: rgb(156, 217, 238);">
+
+    <ion-col text-center ><b>GOLES DEL PARTIDO</b></ion-col>     
+  </ion-row>
+
+  <ion-row style="background-color: rgb(156, 217, 238);">
+    <ion-col text-center size="5"><b>EQUIPO 1</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>EQUIPO 2</b></ion-col>
+  </ion-row>
+
+  <ion-row style="background-color: rgb(236, 250, 255);"> -->
+
+    <!-- goles equipo 1 -->
+  <!--  <ion-col size="5">
+    <ion-row  *ngFor="let item of golesequipo1">
+      <ion-col>
+      
+        <ion-row >
+          <ion-col  text-center size="small">
+            {{item.nombre}}
+          </ion-col>
+         
+        </ion-row>
+
+    </ion-col>
+    </ion-row>
+  </ion-col>
+  <ion-col size="2"></ion-col> -->
+
+<!-- goles EQUIPO 2 -->
+ <!--  <ion-col size="5">
+    <ion-row>
+      <ion-col>
+      
+        <ion-row  *ngFor="let item of golesequipo2">
+          <ion-col  text-center size="small">
+              {{item.nombre}}
+          </ion-col>
+        
+        </ion-row>
+    </ion-col>
+    </ion-row>
+  </ion-col>
+  </ion-row> -->
+
+    <!-- fin goles -->
+
+<!-- faltas -->
   <ion-row style="background-color: rgb(156, 217, 238);">
 
     <ion-col text-center ><b>TARJETAS DEL PARTIDO</b></ion-col>     
@@ -82,6 +137,7 @@
 
   <ion-row style="background-color: rgb(236, 250, 255);">
 
+    <!-- faltas equipo 1 -->
    <ion-col size="5">
     <ion-row  *ngFor="let item of falatsequipo1">
       <ion-col>
@@ -118,6 +174,8 @@
   </ion-col>
   </ion-row>
 
+  <!-- fin faltas -->
+
   <ion-row >
 
     <ion-item >
@@ -134,15 +192,15 @@
    
   </ion-card>
     <ion-button color="success" expand="block" fill="outline" type="submit"  (click)="insertarInforme()">GUARDAR INFORME</ion-button>
-<ion-grid>
+<!-- <ion-grid>
   <ion-row>
     <ion-col>
-      <ion-button color="danger"  expand="block" fill="outline" type="submit" > GOLES </ion-button>
+      <ion-button color="danger"  expand="block" fill="outline" type="submit" routerLink="/editargoles" > GOLES </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button color="danger" expand="block" fill="outline" type="submit" > TARJETAS </ion-button>
+      <ion-button color="danger" expand="block" fill="outline" type="submit" routerLink="/editarfaltas" > TARJETAS </ion-button>
     </ion-col>
     
   </ion-row>
-</ion-grid>
+</ion-grid> -->
 </ion-content>

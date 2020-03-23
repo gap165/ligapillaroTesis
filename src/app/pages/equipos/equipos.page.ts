@@ -18,7 +18,7 @@ export class EquiposPage implements OnInit {
   idcategoria:string;
   buscarEquipo="";
 
-  url="http://localhost/wsligapillaro/files/equipos/";
+  url="http://192.168.1.3/wsligapillaro/files/equipos/";
 
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage,private routes:NavController,private actionSheetController:ActionSheetController) { 
    
@@ -91,7 +91,7 @@ cargarEquipo(){
     const actionSheet = await this.actionSheetController.create({
       header: 'Equipos',
       buttons: [{
-        text: 'Faltas del equipo',
+        text: 'Tarjetas del equipo',
         icon: 'bookmarks',
        cssClass:'.color',
        

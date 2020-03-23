@@ -2,14 +2,14 @@
   <ion-toolbar color="success">
      
    <ion-buttons slot="start">
-            <ion-back-button text=" " defaultHref="/inicio"></ion-back-button>
+            <ion-back-button text=" " defaultHref="/equipos"></ion-back-button>
         </ion-buttons>
         <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
-        <ion-title size="undefined" style="font-family:Times" align="center">Faltas</ion-title>
+        <ion-title size="undefined" style="font-family:Times" align="center">Tarjetas del Equipo</ion-title>
   </ion-toolbar>
  <!-- BUSCAR POR FALTAS -->
  <ion-toolbar>
-    <ion-searchbar animated placeholder="Buscar por tipo de falta"
+    <ion-searchbar animated placeholder="Buscar por tipo de tarjeta"
     (ionChange)="buscar($event)">
     </ion-searchbar>
  </ion-toolbar>
@@ -34,7 +34,7 @@
                 </ion-text>
                 
          <ion-text color="danger">
-         <h2>Tipo de Falta: {{item.nombrefalta}}</h2>
+         <h2>Tipo de Tarjeta: {{item.nombrefalta}}</h2>
          </ion-text>
          <ion-text>
          <p>Fecha de calendario: {{item.fecha}}</p>

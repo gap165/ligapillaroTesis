@@ -12,14 +12,14 @@
 <ion-content>
   <ion-card>
     <ion-list>
-      <div class="form-background" *ngFor="let item of arbitro">
+      
         <ion-label><h1 text-center>PERFIL DEL ARBITRO</h1></ion-label>
         
        <ion-grid>
          <ion-row>
 
            <ion-col size="3"></ion-col>
-           <ion-col size="6"> <img [src]="url+item.fotoss" ></ion-col>
+           <ion-col size="6"> <img [src]="url+fotoss" ></ion-col>
            <ion-col size="3" ></ion-col>
           
         </ion-row>
@@ -28,30 +28,30 @@
   
   
       <ion-item>
-         <ion-label>NOMBRE: {{item.nombre}} {{item.apellido}} </ion-label>
+         <ion-label>NOMBRE: {{nombre}} {{apellido}} </ion-label>
             
        </ion-item>
        <ion-item>
-         <ion-label >CEDULA: {{item.cedula}}</ion-label>
+         <ion-label >CEDULA: {{cedula}}</ion-label>
         
        </ion-item>
        <ion-item>
-         <ion-label>DIRECCIÓN: {{item.cedula}} </ion-label>
+         <ion-label>DIRECCIÓN: {{cedula}} </ion-label>
          
        </ion-item>
        <ion-item>
-         <ion-label >TELEFONO: {{item.telefono}}</ion-label>
+         <ion-label >TELEFONO: {{telefono}}</ion-label>
        
        </ion-item>
        <ion-item>
-         <ion-label>CELULAR: {{item.celular}} </ion-label>
+         <ion-label>CELULAR: {{celular}} </ion-label>
          
        </ion-item>
        <ion-item>
-         <ion-label>CORREO: {{item.correo}} </ion-label>
+         <ion-label>CORREO: {{correo}} </ion-label>
          
        </ion-item>
-        </div>
+  
     </ion-list>
        
   </ion-card>

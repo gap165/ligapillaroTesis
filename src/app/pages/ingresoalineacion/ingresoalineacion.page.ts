@@ -192,8 +192,6 @@ export class IngresoalineacionPage implements OnInit {
                   }
                 });
             });
-
-
             //////////////////////
           } else {
             this.webServicePillaro.presentToast(datos.mensaje);
@@ -348,7 +346,7 @@ export class IngresoalineacionPage implements OnInit {
   
               // alert(datos.mensaje);
             } else {
-              this.webServicePillaro.presentToast('ERROR AL REALIZAR EL CAMBIO');
+              this.webServicePillaro.presentToast('HA REALIZADOS TODOS LOS CAMBIOS PERMITIDOS');
             }
           });
       });

@@ -70,6 +70,14 @@ const routes: Routes = [
     path: 'carnets',
     loadChildren: () => import('./pages/carnets/carnets.module').then( m => m.CarnetsPageModule)
   },
+  {
+    path: 'editarfaltas',
+    loadChildren: () => import('./pages/editarfaltas/editarfaltas.module').then( m => m.EditarfaltasPageModule)
+  },
+  {
+    path: 'editargoles',
+    loadChildren: () => import('./pages/editargoles/editargoles.module').then( m => m.EditargolesPageModule)
+  },
  
 ];
 

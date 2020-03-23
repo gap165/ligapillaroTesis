@@ -11,18 +11,36 @@ import { finalize } from 'rxjs/operators';
 })
 export class PerfilArbiPage implements OnInit {
   idarbitro:string;
+  fotoss:string;
+  nombre:string;
+  apellido:string;
+  cedula:string;
+  direccion:string;
+  celular:string;
+  telefono:string;
+  correo:string;
+
   arbitro=[];
-  url="http://localhost/wsligapillaro/files/arbitros/";
+  url="http://192.168.1.3/wsligapillaro/files/arbitros/";
 
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage) { }
 
   ngOnInit() {
       this.storage.get('usuarioArbi').then((usuario)=>{
-        this.idarbitro=usuario.idarbitro;
+        this.idarbitro=usuario.datos.idarbitro;
+        this.fotoss=usuario.datos.fotoss;
+        this.nombre=usuario.datos.nombre;
+        this.apellido=usuario.datos.apellido;
+        this.cedula=usuario.datos.cedula;
+        this.direccion=usuario.datos.direccion;
+        this.celular=usuario.datos.celular;
+        this.telefono=usuario.datos.telefono;
+        this.correo=usuario.datos.correo;
+        
         console.log(usuario);
   
       });
-      this.webServicePillaro.presentLoading().then(()=>{
+    /*   this.webServicePillaro.presentLoading().then(()=>{
         this.webServicePillaro.perfilArbi().pipe(
           finalize(async () => {
               await this.webServicePillaro.loading.dismiss();
@@ -36,7 +54,7 @@ export class PerfilArbiPage implements OnInit {
             this.webServicePillaro.presentToast(datos.mensaje);
           }
         }));
-      });
+      }); */
   
   
   }

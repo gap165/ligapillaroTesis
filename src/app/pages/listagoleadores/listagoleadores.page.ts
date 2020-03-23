@@ -15,7 +15,7 @@ goleadores=[];
 idserie:string;
 idcategoria:string;
 
- url="http://192.168.1.5/wsligapillaro/files/jugadores/";
+ url="http://192.168.1.3/wsligapillaro/files/jugadores/";
 
   constructor(private webServicePillaro:WsLigaPillaroService ) { }
 
