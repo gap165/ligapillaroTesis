@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { WsLigaPillaroService } from 'src/app/service/ws-liga-pillaro.service';
 import { finalize } from 'rxjs/operators';
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -21,7 +22,9 @@ telefono:string="";
 celular:string="";
 correo:string="";
 password:string="";
-  constructor(private storage: Storage, private webServicePillaro:WsLigaPillaroService) { }
+  constructor(private storage: Storage, private webServicePillaro:WsLigaPillaroService, private menu:MenuController) {
+    this.menu.enable(false,'first');
+   }
 
   ngOnInit() {
 

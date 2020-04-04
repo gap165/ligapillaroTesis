@@ -15,6 +15,7 @@ import { InicioPage } from './pages/inicio/inicio.page';
 import { Title } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -26,7 +27,7 @@ export class AppComponent {
   public Paginas=[
     {title:'Inicio',url:'/inicio',icon:'home'},
     {title:'Perfil Arbitro',url:'/perfil-arbi',icon:'person'},
-    {title:'Calendario',url:'/calendario',icon:'calendar'},
+    {title:'Encuentros Deportivos',url:'/calendario',icon:'calendar'},
     {title:'Equipos',url:'/equipos',icon:'people'},
    /*  {title:'Tabla de Posiciones',url:'/tablaposiciones',icon:'stats'}, */
     {title:'Lista de Goleadores',url:'/listagoleadores',icon:'football'},

@@ -25,11 +25,12 @@ export class WsLigaPillaroService {
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.get('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=ping', {headers: headers});
   }
-  perfilArbi(){
+  perfilArbi(idarbitro:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Accept', 'application/json; charset=utf-8');
-    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=perfilArbi',JSON.stringify({
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=perfilArbitro',JSON.stringify({
+    'idarbitro':idarbitro
    }),{headers:headers});
   }
 
@@ -41,21 +42,21 @@ export class WsLigaPillaroService {
    }),{headers:headers});
   }
 
-  listaCategoria(idserie:string){
+  listaCategoria( ){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listaCategoria',JSON.stringify({
-    'idserie': idserie
+ 
     }),{headers:headers});
   }
 
-  equipos(idserie:string, idcategoria:string){
+  equipos( idcategoria:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listaEquipos',JSON.stringify({
-   'idserie': idserie,
+   
    'idcategoria': idcategoria
     }),{headers:headers});
   }
@@ -114,21 +115,21 @@ faltasequipo(idequipo:string){
    }),{headers:headers});
   }
 
-  comboCategoria(idserie:string){
+  comboCategoria(){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=comboCategoria',JSON.stringify({
-    'idserie': idserie
+  
     }),{headers:headers});
   }
 
-  Goleadores(idserie:string, idcategoria:string){
+  Goleadores( idcategoria:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Accept', 'application/json; charset=utf-8');
     return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=topGoleadores',JSON.stringify({
-  'idserie':idserie,
+
   'idcategoria':idcategoria  
   }),{headers:headers});
   }
@@ -271,10 +272,9 @@ listarJugadoresComboE2(idequipo:string){
   }),{headers:headers});
 }
 
-
 /* fin fALTAS Y GOLES */
 
-  listCalendario(temporada:string,serie:string,idcategoria:string){
+ /*  listaCalendario(temporada:string,serie:string,idcategoria:string){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Accept', 'application/json; charset=utf-8');
@@ -282,6 +282,17 @@ listarJugadoresComboE2(idequipo:string){
     'temporada':temporada,
     'serie':serie,
     'idcategoria':idcategoria
+    }),{headers:headers});
+  } */
+
+  
+  listCalendario(fecha:Date){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Accept', 'application/json; charset=utf-8');
+    return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=listCalendario',JSON.stringify({
+    'fecha':fecha
+    
     }),{headers:headers});
   }
 
@@ -505,6 +516,20 @@ insertarArbitro( cedula:string, nombre:string, apellido:string, direccion:string
   'celular': celular,
   'correo': correo,
   'password':password
+  }),{headers:headers});
+}
+
+actArbitro(idarbitro:string, direccion:string, telefono:string,  celular:string, correo:string ){
+  let headers = new HttpHeaders();
+  headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+  headers = headers.set('Accept', 'application/json; charset=utf-8');
+  return this.http.post('http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=actArbitro',JSON.stringify({
+    'idarbitro':idarbitro,
+  'direccion': direccion,
+  'telefono': telefono,
+  'celular': celular,
+  'correo': correo
+  
   }),{headers:headers});
 }
 

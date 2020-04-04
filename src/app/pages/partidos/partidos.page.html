@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+        <ion-back-button size="small" text=" " defaultHref="/inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
+    <ion-title size="undefined" style="font-family:Times" align="center">Calendario</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card color="success">
+    <ion-calendar  [(ngModel)]="date"
+      (onChange)="onChange($event)"
+      [type]="type"
+      [format]="'YYYY-MM-DD'">
+    </ion-calendar>
+</ion-card>
+<ion-item>
+  <ion-label>CALENDARIO</ion-label>
+  <ion-datetime displayFormat="MMM - DD - YYYY" placeholder="Seleccion el dia">
+  </ion-datetime>
+</ion-item>
+</ion-content>

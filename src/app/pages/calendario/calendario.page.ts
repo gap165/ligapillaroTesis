@@ -4,12 +4,21 @@ import { finalize } from 'rxjs/operators';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Storage } from '@ionic/storage';
 import { ActionSheetController, NavController } from '@ionic/angular';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
+
+
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.page.html',
   styleUrls: ['./calendario.page.scss'],
 })
+
 export class CalendarioPage implements OnInit {
+
+  constructor(private webServicePillaro:WsLigaPillaroService,
+  private storage:Storage,
+  private actionSheetController: ActionSheetController,
+  private routes:NavController ) { }
 lista_temporadas=[];
 temporadas:string;
 lista_series=[];
@@ -18,18 +27,47 @@ lista_calendario=[];
 series:string;
 idarbitros:string;
 categorias:string;
+buscarCale="";
+fecha: Date= new Date();
+idequipo1:string;
+date: string = "";
+type: 'string';
+   
+onChange($event){
+  
+  console.info("aqui estoy", this.date);
+  console.log("Datos del calendario", $event.format('YYYY-MM-DD'));
+  this.webServicePillaro.listCalendario( $event.format('YYYY-MM-DD')).pipe(
+    finalize(async () => {
+        await this.webServicePillaro.loading.dismiss();
+        
+    }))
+  .subscribe((data=>{
+    let datos:any=data
+    console.log(datos);
+    if(datos.status=="Ok"){
 
-  constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage, private actionSheetController: ActionSheetController, private routes:NavController ) { }
+      this.lista_calendario=datos.calendarios;
+
+    }else{
+      this.webServicePillaro.presentToast(datos.mensaje);
+      this.lista_calendario=[' '];
+    }
+  }));
+  ///
+} 
 
   ngOnInit() {
+    
     this.storage.get('usuarioArbi').then((usuario)=>{
       this.idarbitros=usuario.datos.idarbitro;
       console.log(usuario);
+      
 
     });
     
 
-    this.webServicePillaro.presentLoading().then(()=>{
+/*  this.webServicePillaro.presentLoading().then(()=>{
       this.webServicePillaro.listTemporadas().pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
@@ -38,16 +76,15 @@ categorias:string;
         let datos:any=data
         if(datos.status=="Ok"){
           this.lista_temporadas=datos.temporadas;
-   
         }else{
           this.webServicePillaro.presentToast(datos.mensaje);
         }
       }));
-    });
+    }); */
 
   }
 
-  cargarSeries(){
+ /*  cargarSeries(){
   
     this.webServicePillaro.presentLoading().then(()=>{
       this.webServicePillaro.listsSeries(this.temporadas).pipe(
@@ -84,12 +121,12 @@ categorias:string;
         }
       }));
     });
-  }
+  } */
 
   cargarCalendario(){
 
-    this.webServicePillaro.presentLoading().then(()=>{
-      this.webServicePillaro.listCalendario(this.temporadas,this.series,this.categorias).pipe(
+    
+      this.webServicePillaro.listCalendario(this.fecha).pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
         }))
@@ -99,33 +136,38 @@ categorias:string;
         if(datos.status=="Ok"){
         
           this.lista_calendario=datos.calendarios;
+          
+
         }else{
           this.webServicePillaro.presentToast(datos.mensaje);
+          this.lista_calendario=[' '];
         }
       }));
-    });
+    
+  }
+  /////SUB-MENU DE INGRESOS
+async llamar(calendario, idequipo1){
+  console.log(calendario);
+  console.log(idequipo1);
+
+  let datos ={
+    "calendario":calendario,
+    "idequipo":idequipo1
   }
 
-  /////SUB-MENU DE INGRESOS
+  this.storage.set('calendario',datos).then(()=>{
+ //envia a la pagina de ingreso de alineacion
+ this.routes.navigateForward('ingresoalineacion');
+ 
+ });
+}
+
   async ingresoCalendario(calendario) {
    
     const actionSheet = await this.actionSheetController.create({
       header: 'Partidos',
       buttons: [{
-        text: 'Consultar Alineación',
-        icon: 'bookmarks',
-       cssClass:'.color',
-       
-        handler: () => {
-          this.storage.set('calendario',calendario).then(()=>{
-             //envia a la pagina de ingreso de alineacion
-            this.routes.navigateForward('ingresoalineacion');
-          });
-                 
-        }
-      },
-            
-      {
+    
         text: 'Ingresar Informe',
         icon: 'contacts',
         handler: () => {
@@ -149,7 +191,7 @@ categorias:string;
     await actionSheet.present();
   }
 
-   
-  
-
+  buscar(evento){
+    this.buscarCale=evento.detail.value;
+  }
 }

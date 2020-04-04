@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵConsole, Input } from '@angular/core';
 import { WsLigaPillaroService } from "src/app/service/ws-liga-pillaro.service";
 import { finalize } from "rxjs/operators";
 import { Storage } from "@ionic/storage";
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, NavController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { QRScannerStatus, QRScanner } from '@ionic-native/qr-scanner/ngx';
 
@@ -36,13 +36,15 @@ export class IngresoalineacionPage implements OnInit {
   sale:string;
   listar_cambiosR=[];
   numcambios=0;
+ nomE:string;
   
   constructor(
     private webServicePillaro: WsLigaPillaroService,
     private storage: Storage,
     private platform: Platform,
     private qrScanner: QRScanner,
-    private alertController:AlertController
+    private alertController:AlertController,
+    private routes:NavController
   ) {
 
     this.platform.backButton.subscribeWithPriority(0, () => {
@@ -52,12 +54,21 @@ export class IngresoalineacionPage implements OnInit {
   }
 
   ngOnInit() {
+
     //Guardo idcalendario en storage
 
     this.storage.get("calendario").then(calendario => {
-      console.log(calendario);
-      this.idcalendario = calendario.idcalendario;
-      this.cargarEquipo(calendario.idcalendario);
+   
+        console.log(calendario);
+      
+        this.idcalendario = calendario.calendario;
+      /* this.cargarEquipo(calendario); */
+        this.idequipo = calendario.idequipo;
+        this.nomE = calendario.equipo1;
+       // this.cargarEquipo(this.idcalendario);
+        this.cargarAlineacion();
+  
+
     });
 
     /*   this.storage.get('jugador').then((jugador)=>{
@@ -106,7 +117,7 @@ export class IngresoalineacionPage implements OnInit {
           }
         });
     });
-  }
+  } 
 
   cargarAlineacion() {
 
@@ -222,6 +233,8 @@ export class IngresoalineacionPage implements OnInit {
     });
   }
 
+
+  /* COMBO DE JUGADORES PARA CAMBIOS */
   cargarCombo(){
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
@@ -313,8 +326,8 @@ export class IngresoalineacionPage implements OnInit {
           let datos: any = data;
           if (datos.status == "Ok") {
             console.log(datos);
-            this.webServicePillaro.presentToast("GOL INGRESADO CORRECTAMENTE");
-
+            /* this.alerta(datos.mensaje); */
+this.ingresoGol();
             // alert(datos.mensaje);
           } else {
             this.webServicePillaro.presentToast(datos.mensaje);
@@ -418,5 +431,33 @@ export class IngresoalineacionPage implements OnInit {
 
     await alert.present();
   }
+
+  async ingresoGol() {
+    const alert = await this.alertController.create({
+  
+      header: 'Guardar gol',
+      inputs: [
+        {
+          name: 'min',
+         type: 'number',
+          placeholder: 'Minuto que se hizo el gol'
+        }
+      ],
+
+      buttons: [
+    
+      { 
+        text: 'GUARDAR',
+        handler: (data) => {
+          
+          console.log(data);
+          this.routes.navigateForward('ingresoalineacion');
+        }
+      }]
+    });
+  
+    await alert.present();
+  }
+  
 
 }

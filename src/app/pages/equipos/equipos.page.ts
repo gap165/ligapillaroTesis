@@ -18,7 +18,7 @@ export class EquiposPage implements OnInit {
   idcategoria:string;
   buscarEquipo="";
 
-  url="http://192.168.1.3/wsligapillaro/files/equipos/";
+  url="http://localhost/wsligapillaro/files/equipos/";
 
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage,private routes:NavController,private actionSheetController:ActionSheetController) { 
    
@@ -26,7 +26,7 @@ export class EquiposPage implements OnInit {
  
   ngOnInit() {
  
-      this.webServicePillaro.presentLoading().then(()=>{
+      /* this.webServicePillaro.presentLoading().then(()=>{
         this.webServicePillaro.listaSerie().pipe(
           finalize(async () => {
               await this.webServicePillaro.loading.dismiss();
@@ -41,13 +41,31 @@ export class EquiposPage implements OnInit {
             this.webServicePillaro.presentToast(datos.mensaje);
           }
         }));
-      });
+      }); */
+
+    
+        this.webServicePillaro.presentLoading().then(()=>{
+          this.webServicePillaro.listaCategoria( ).pipe(
+            finalize(async () => {
+                await this.webServicePillaro.loading.dismiss();
+            }))
+          .subscribe((data=>{
+            let datos:any=data
+            if(datos.status=="Ok"){
+              this.lista_categoria=datos.cateE;
+              console.log(this.lista_categoria);
+           }else{
+              this.webServicePillaro.presentToast(datos.mensaje);
+            }
+          }));
+        });
+
   }
 
 cargarCategoria(){
   console.log('ESTA AQUI');
   this.webServicePillaro.presentLoading().then(()=>{
-    this.webServicePillaro.listaCategoria(this.idserie).pipe(
+    this.webServicePillaro.listaCategoria( ).pipe(
       finalize(async () => {
           await this.webServicePillaro.loading.dismiss();
       }))
@@ -66,7 +84,7 @@ cargarCategoria(){
 
 cargarEquipo(){
   this.webServicePillaro.presentLoading().then(()=>{
-    this.webServicePillaro.equipos(this.idserie, this.idcategoria).pipe(
+    this.webServicePillaro.equipos(this.idcategoria).pipe(
       finalize(async () => {
           await this.webServicePillaro.loading.dismiss();
       }))

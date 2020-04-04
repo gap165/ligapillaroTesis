@@ -21,42 +21,71 @@ export class PerfilArbiPage implements OnInit {
   correo:string;
 
   arbitro=[];
-  url="http://192.168.1.3/wsligapillaro/files/arbitros/";
+  url="http://localhost/wsligapillaro/files/arbitros/";
 
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage) { }
 
   ngOnInit() {
-      this.storage.get('usuarioArbi').then((usuario)=>{
-        this.idarbitro=usuario.datos.idarbitro;
-        this.fotoss=usuario.datos.fotoss;
-        this.nombre=usuario.datos.nombre;
-        this.apellido=usuario.datos.apellido;
-        this.cedula=usuario.datos.cedula;
-        this.direccion=usuario.datos.direccion;
-        this.celular=usuario.datos.celular;
-        this.telefono=usuario.datos.telefono;
-        this.correo=usuario.datos.correo;
-        
-        console.log(usuario);
-  
-      });
-    /*   this.webServicePillaro.presentLoading().then(()=>{
-        this.webServicePillaro.perfilArbi().pipe(
+
+
+    //aqui debes cargar los datos de la consulta
+
+    // no estas mandando ningun id
+    this.storage.get('usuarioArbi').then((usuario)=>{
+      this.idarbitro=usuario.datos.idarbitro;
+      this.webServicePillaro.presentLoading().then(()=>{
+        this.webServicePillaro.perfilArbi(this.idarbitro).pipe(
           finalize(async () => {
               await this.webServicePillaro.loading.dismiss();
           }))
         .subscribe((data=>{
           let datos:any=data
           if(datos.status=="Ok"){
-            console.log(datos)
-           this.arbitro=datos.pArbi
+           this.cedula=datos.pArbi.cedula;
+            this.nombre=datos.pArbi.nombre;
+            this.apellido=datos.pArbi.apellido;
+            this.direccion=datos.pArbi.direccion;
+            this.telefono=datos.pArbi.telefono;
+            this.celular=datos.pArbi.celular;
+            this.correo=datos.pArbi.correo;
+            this.fotoss=datos.pArbi.fotoss;
+
+
           }else{
             this.webServicePillaro.presentToast(datos.mensaje);
           }
         }));
-      }); */
-  
-  
+      });
+
+    });
+  }
+
+  actArbitro(){
+    if( this.direccion=="" || this.telefono=="" || this.celular=="" || this.correo==""){
+      this.webServicePillaro.presentToast('Ingrese todos los campos solicitados');
+    }else{
+      this.webServicePillaro.presentLoading().then(()=>{
+        
+        this.webServicePillaro.actArbitro(this.idarbitro,this.direccion, this.telefono, this.celular, this.correo ).pipe(
+            finalize(async () => {
+                // Hide the loading spinner on success or error
+                await this.webServicePillaro.loading.dismiss();
+            }))
+          .subscribe((data=>{
+            let datos:any=data
+            if(datos.status=="Ok"){
+
+             
+                this.webServicePillaro.presentToast(datos.mensaje);
+                this.ngOnInit();
+                
+              }else{
+                
+              this.webServicePillaro.presentToast(datos.mensaje);
+            }
+          }));
+    })}
+
   }
 
 }

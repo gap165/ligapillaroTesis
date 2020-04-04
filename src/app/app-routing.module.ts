@@ -53,10 +53,7 @@ const routes: Routes = [
     path: 'carnetjugador',
     loadChildren: () => import('./pages/carnetjugador/carnetjugador.module').then( m => m.CarnetjugadorPageModule)
   },
-  {
-    path: 'partidosjugados',
-    loadChildren: () => import('./pages/partidosjugados/partidosjugados.module').then( m => m.PartidosjugadosPageModule)
-  },
+  
  
   {
     path: 'registro-arbi',
@@ -78,6 +75,15 @@ const routes: Routes = [
     path: 'editargoles',
     loadChildren: () => import('./pages/editargoles/editargoles.module').then( m => m.EditargolesPageModule)
   },
+  {
+    path: 'partidos',
+    loadChildren: () => import('./pages/partidos/partidos.module').then( m => m.PartidosPageModule)
+  },
+  {
+    path: 'pruebacale',
+    loadChildren: () => import('./pages/pruebacale/pruebacale.module').then( m => m.PruebacalePageModule)
+  },
+  
  
 ];
 

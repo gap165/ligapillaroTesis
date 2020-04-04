@@ -25,11 +25,11 @@ export class IngresoinformePage implements OnInit {
   idcalendarioss:string="";
   informe:string="";
   equipo1:string="";
-  resultado1:string="EMPATE";
+  resultado1:string="POR JUGAR";
   puntos1:string="0";
   equipo2:string="";
   nombre_cancha="";
-  resultado2:string="EMPATE";
+  resultado2:string="POR JUGAR";
   puntos2:string="0";
 
   
@@ -80,9 +80,6 @@ export class IngresoinformePage implements OnInit {
                 this.puntos2='EMPATE';
                 this.puntos1='EMPATE';
               }
-
-
-           
                 //###########faltas equipo 1
 
                 this.webServicePillaro
@@ -94,8 +91,6 @@ export class IngresoinformePage implements OnInit {
                     if(datos.faltas!='FALTAS'){
                       this.falatsequipo1=datos.faltas;
                     }
-                   
-                    
                     //##--falstas equipo 2
 
                         this.webServicePillaro
@@ -116,7 +111,7 @@ export class IngresoinformePage implements OnInit {
                         ///////////////////////
                         //##--goless equipo 1
 
-                       /*  this.webServicePillaro
+                        this.webServicePillaro
                         .golesEquipo1(this.idcalendario, calendario.idequipo1)
                         .subscribe(data => {
                           let datos: any = data;
@@ -129,11 +124,11 @@ export class IngresoinformePage implements OnInit {
                           } else {
                             this.webServicePillaro.presentToast(datos.mensaje);
                           }
-                         }); */
+                         }); 
 
                            //##--goless equipo 2
 
-                        /* this.webServicePillaro
+                        this.webServicePillaro
                         .golesEquipo2(this.idcalendario, calendario.idequipo2)
                         .subscribe(data => {
                           let datos: any = data;
@@ -147,7 +142,7 @@ export class IngresoinformePage implements OnInit {
                             this.webServicePillaro.presentToast(datos.mensaje);
                           }
                          });
- */
+
                   } else {
                     this.webServicePillaro.presentToast(datos.mensaje);
                   }
@@ -181,8 +176,8 @@ export class IngresoinformePage implements OnInit {
    
     this.webServicePillaro.presentLoading().then(()=>{
       
-      this.webServicePillaro.insertaInforme( this.idarbitros,   this.idcalendarioss ,this.informe, this.fecha,
-         this.equipo1,this.resultado1,this.puntos1,this.equipo2,this.resultado2,this.puntos2 ).pipe(
+      this.webServicePillaro.insertaInforme( this.idarbitros,   this.idcalendarioss , this.informe, this.fecha,
+         this.equipo1, this.resultado1, this.puntos1, this.equipo2, this.resultado2, this.puntos2 ).pipe(
           finalize(async () => {
               // Hide the loading spinner on success or error
               await this.webServicePillaro.loading.dismiss();
@@ -222,7 +217,7 @@ async alerta(mensaje) {
     {
       text: 'ACEPTAR',
       handler: () => {
-        this.routes.navigateForward('calendario');
+        this.routes.navigateForward('inicio');
       }
     }]
   });

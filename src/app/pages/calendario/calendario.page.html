@@ -3,14 +3,27 @@
       <ion-buttons slot="start">
           <ion-back-button size="small" text=" " defaultHref="/inicio"></ion-back-button>
       </ion-buttons>
-      <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+   <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail> 
       <ion-title size="undefined" style="font-family:Times" align="center">Calendario</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <ion-list>
+
+  <!-- CALENDARIO -->
+ <ion-card color="success">
+    
+    <ion-calendar 
+      [(ngModel)]="date"
+      (change)="onChange($event)"
+      [type]="type"
+      [format]="'YYYY-MM-DD'">
+    
+    </ion-calendar> 
+  </ion-card> 
+
+  <!-- <ion-list>
           
         <ion-item-group>
             <ion-item>
@@ -32,25 +45,43 @@
                    <ion-select *ngIf="lista_categorias.length > 0"  [(ngModel)]="categorias" (ionChange)="cargarCalendario()">
                      <ion-select-option *ngFor="let item of lista_categorias" value='{{item.idcategoria}}'>{{item.nombre_cate}}</ion-select-option>
                    </ion-select>
-              </ion-item>
+                  </ion-item>
       </ion-item-group>
-      </ion-list>
+
+  <ion-item>
+        <ion-datetime
+        placeholder="Seleccione una fecha"
+        cancelText="Cancelar"
+        doneText="Seleccionar"
+        month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+        day-names="lunes, martes,miercoles,jueves,viernes,sabado,domingo"
+        min="2020-01-01"
+        max="2050-01-01"
 
 
+        value="{{ fecha | date: 'yyyy-MM-dd' }}"
+        displayFormat=" YYYY MMMM, DD" 
+        [(ngModel)]="fecha"
+        (ionChange)="cargarCalendario()">
+        </ion-datetime> 
+  </ion-item> 
 
-  <ion-grid style="background-color: #e9d35a;" >
-  <ion-row display style="background-color:#045323;">
-   <ion-col>
-        <h5  style="color: azure;" align="center"> LIGA DEPORTIVA CANTONAL PILLARO </h5>
+      </ion-list> -->
+
+  <ion-grid style="background-color:#045323" > 
+<!--    <ion-row display style="background-color:  #045323;">
+   <ion-col class="ion-text-center" >
+        <h5 style="color: azure;" align="center"> LIGA DEPORTIVA CANTONAL PILLARO </h5>
         
   </ion-col>
   </ion-row>
   
    <ion-row style="background-color:#045323;">
-     <ion-col>
-        <p  style="color: azure;" align="center"> PROGRAMACIÓN DE CAMPEONATO DE FUTBOL INSTITUCIONAL</p>                
+     <ion-col style="color: azure;" size="small" class="ion-text-center">
+        PROGRAMACIÓN DE CAMPEONATO DE FUTBOL INSTITUCIONAL     
      </ion-col>
-   </ion-row>
+   </ion-row> -->
+
        <ion-row  style="background-color:#045323;">
        <ion-col style="color: azure;" size="2">Hora</ion-col>
        <ion-col style="color: azure;"  size="4">Equipo1</ion-col>           
@@ -58,14 +89,36 @@
        <ion-col style="color: azure;" size="4">Equipo2</ion-col>
    </ion-row>
   
-   <ion-row *ngFor="let item of lista_calendario" style="background-color: #e9d35a;" (click)="ingresoCalendario(item)" >
-       <ion-col size="2">{{item.hora}}</ion-col>
-       <ion-col size="4">{{item.equipo1}}</ion-col>           
-       <ion-col size="2">VS</ion-col>
-       <ion-col size="4">{{item.equipo2}}</ion-col>
-   </ion-row>
- 
-  </ion-grid>            
+   <ion-row *ngFor="let item of lista_calendario" style="background-color: #f3e69e;" >
+    
+      <ion-col 
+        size="2">
+          <b>{{item.hora}}</b>
+      </ion-col>
 
+      <ion-col 
+        size="4">
+        
+      <b (click)="llamar(item.idcalendario,item.idequipo1)">{{item.equipo1}}</b>
+      </ion-col>      
+
+      <ion-col
+      (click)="ingresoCalendario(item)"
+      size="2"  >
+        <b>VS</b>
+      </ion-col>
+      <ion-col size="4"> 
+      <B (click)="llamar(item.idcalendario,item.idequipo2)">{{item.equipo2}}</B>
+      </ion-col>
+   </ion-row>
+  </ion-grid> 
+
+<!--   <ion-input    placeholder="Seleccione una fecha"
+  type="date"
+  value="{{ fecha | date: 'yyyy-MM-dd' }}"
+  [(ngModel)]="fecha"
+  (ionChange)="cargarCalendario()"> SELECCIONAR FECHA: 
+  
+  </ion-input>  -->
 
 </ion-content>

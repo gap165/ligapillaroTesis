@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
         <ion-back-button text=" " defaultHref="/inicio"></ion-back-button>
     </ion-buttons>
-    <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+    <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
     <ion-title size="undefined" style="font-family:Times" align="center">Perfil</ion-title>
 </ion-toolbar>
 </ion-header>
@@ -18,16 +18,16 @@
        <ion-grid>
          <ion-row>
 
-           <ion-col size="3"></ion-col>
-           <ion-col size="6"> <img [src]="url+fotoss" ></ion-col>
-           <ion-col size="3" ></ion-col>
+           <ion-col size="4"></ion-col>
+          <ion-card> <ion-col size="4"> <img [src]="url+fotoss" ></ion-col></ion-card>
+           <ion-col size="4" ></ion-col>
           
         </ion-row>
        </ion-grid>
          
   
   
-      <ion-item>
+      <ion-item >
          <ion-label>NOMBRE: {{nombre}} {{apellido}} </ion-label>
             
        </ion-item>
@@ -36,25 +36,26 @@
         
        </ion-item>
        <ion-item>
-         <ion-label>DIRECCIÓN: {{cedula}} </ion-label>
+         <ion-label>DIRECCIÓN:</ion-label>
+         <ion-input type="text" [(ngModel)]="direccion"></ion-input>
          
        </ion-item>
        <ion-item>
-         <ion-label >TELEFONO: {{telefono}}</ion-label>
-       
+         <ion-label>TELEFONO: </ion-label>
+         <ion-input type="text" maxlength="9" [(ngModel)]="telefono"></ion-input>
        </ion-item>
        <ion-item>
-         <ion-label>CELULAR: {{celular}} </ion-label>
-         
+         <ion-label>CELULAR: </ion-label>
+         <ion-input type="text" [(ngModel)]="celular"></ion-input>
        </ion-item>
        <ion-item>
-         <ion-label>CORREO: {{correo}} </ion-label>
-         
+         <ion-label>CORREO: </ion-label>
+         <ion-input type="text" [(ngModel)]="correo"></ion-input>
        </ion-item>
-  
+     
     </ion-list>
        
   </ion-card>
-
+  <ion-button expand="block" fill="outline" type="submit" color="success" (click)="actArbitro()">EDITAR DATOS</ion-button>
  
 </ion-content>

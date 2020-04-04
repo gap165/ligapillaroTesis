@@ -16,6 +16,8 @@ import { PipesModule } from './pipes/pipes.module';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

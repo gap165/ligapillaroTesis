@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="success">
-    <ion-avatar slot="end"><img src="../assets/icon/logoLiga.png"></ion-avatar>
+    <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
     <ion-title size="undefined" style="font-family:Times" align="center">Registrarse</ion-title>
 </ion-toolbar>
 </ion-header>
@@ -10,7 +10,7 @@
    <ion-label><h1>Crea una cuenta</h1></ion-label>
   <ion-item>
     <ion-label position="floating"  >CÉDULA</ion-label>
-    <ion-input type="text" [(ngModel)]="cedula" required>
+    <ion-input type="number" [(ngModel)]="cedula" required>
     </ion-input>
   </ion-item>
   <ion-item>
@@ -30,12 +30,12 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating" >TELEFONO</ion-label>
-    <ion-input type="text" [(ngModel)]="telefono">
+    <ion-input type="number" [(ngModel)]="telefono">
     </ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating" >CELULAR</ion-label>
-    <ion-input type="text" [(ngModel)]="celular">
+    <ion-input type="number" [(ngModel)]="celular">
     </ion-input>
   </ion-item>
   <ion-item>
@@ -50,11 +50,7 @@
     </ion-input>
   </ion-item>
  
-    <ion-button fill=outline color="success" expand="block" (click)="guardarArbitro()" ><b>REGISTRARTE</b></ion-button>
+    <ion-button fill=outline color="success" expand="block" routerLink="/login" (click)="guardarArbitro()" ><b>REGISTRARTE</b></ion-button>
     <ion-button  expand="block" fill="outline" color="danger" routerLink="/login" ><b>CANCELAR</b></ion-button>
- 
-
-   
-   
 </div>
 </ion-content>
