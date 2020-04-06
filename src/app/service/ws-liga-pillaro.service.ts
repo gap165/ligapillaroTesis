@@ -575,12 +575,13 @@ public editarGoles (idgoles:string){
   }),{headers:headers});
 }
 
-public  insertarGol(idjugadores:string, idcalendarios:string, equipo: string){
+public  insertarGol(idjugadores:string, idcalendarios:string, equipo: string, horagol: string){
   let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarGol';
   let body = new HttpParams();
   body = body.set('idjugadores', idjugadores);
   body =  body.set('idcalendarios', idcalendarios);
   body =  body.set('equipo', equipo);
+  body =  body.set('horagol', horagol);
   return   this.http.post( urlServerc, body , {responseType:'json'}  );
 }
 

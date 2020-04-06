@@ -16,6 +16,7 @@
 
 </ion-header>
 <ion-content>
+   
    <ion-list>
      <ion-card *ngFor="let item of liga | buscador:buscarFalta: 'nombrefalta'">
       <ion-grid>
@@ -28,20 +29,38 @@
             </ion-col>
             <ion-col size="10">
               <ion-label class="ion-text-wrap">
-               <ion-text  color="primary">
-                 <h2 >{{item.nombre1}} {{item.nombre2}} 
-                   {{item.apellido1}} {{item.apellido2}}</h2>
+               <ion-text text-center color="primary">
+                 <h2 >{{item.nombreJ}}</h2>
                 </ion-text>
-                
-         <ion-text color="danger">
-         <h2>Tipo de Tarjeta: {{item.nombrefalta}}</h2>
-         </ion-text>
-         <ion-text>
-         <p>Fecha de calendario: {{item.fecha}}</p>
-         </ion-text>
-         <ion-text>
-         <p>Hora de la falta: {{item.hora}}</p>
-        </ion-text>
+
+          <ion-grid>
+           
+           <ion-row>
+              <ion-col text-center>
+               <ion-text color="dark">
+                  T. Amarillas
+               </ion-text>
+               </ion-col>
+              <ion-col text-center>
+               <ion-text color="dark">
+                  T. Rojas
+               </ion-text></ion-col>
+           </ion-row>
+           <ion-row>
+            <ion-col style="background-color: rgb(255, 236, 128);" text-center>
+               <ion-text color="dark">
+                  {{item.nFaltaA}}
+               </ion-text>
+               </ion-col>
+            <ion-col style="background-color: rgb(252, 107, 107);" text-center>
+               <ion-text color="dark">
+                  {{item.nFaltaR}}
+               </ion-text>
+               </ion-col>
+         </ion-row>
+        </ion-grid>
+        
+        
         </ion-label>
            </ion-col>
          </ion-row>

@@ -37,6 +37,7 @@ export class IngresoalineacionPage implements OnInit {
   listar_cambiosR=[];
   numcambios=0;
  nomE:string;
+ horagol:string;
   
   constructor(
     private webServicePillaro: WsLigaPillaroService,
@@ -313,9 +314,12 @@ export class IngresoalineacionPage implements OnInit {
   }
 
   guardarGol(idjugadores) {
+
+this.ingresoGol();
+
     this.webServicePillaro.presentLoading().then(() => {
       this.webServicePillaro
-        .insertarGol(idjugadores, this.idcalendario, this.idequipo)
+        .insertarGol(idjugadores, this.idcalendario, this.idequipo, this.horagol)
         .pipe(
           finalize(async () => {
             // Hide the loading spinner on success or error
@@ -327,7 +331,7 @@ export class IngresoalineacionPage implements OnInit {
           if (datos.status == "Ok") {
             console.log(datos);
             /* this.alerta(datos.mensaje); */
-this.ingresoGol();
+
             // alert(datos.mensaje);
           } else {
             this.webServicePillaro.presentToast(datos.mensaje);
@@ -449,7 +453,7 @@ this.ingresoGol();
       { 
         text: 'GUARDAR',
         handler: (data) => {
-          
+          this.horagol= data.min;
           console.log(data);
           this.routes.navigateForward('ingresoalineacion');
         }

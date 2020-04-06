@@ -89,7 +89,7 @@
   <ion-row style="background-color: rgb(236, 250, 255);">
 
     <!-- goles equipo 1 -->
- <ion-col size="5">
+ <ion-col size="6">
     <ion-row  *ngFor="let item of golesequipo1">
       <ion-col>
       
@@ -97,16 +97,18 @@
           <ion-col  text-center size="small">
             {{item.nombre}}
           </ion-col>
-         
+          <ion-col  text-center  size="small">
+             81'
+          </ion-col>
         </ion-row>
 
     </ion-col>
     </ion-row>
   </ion-col>
-  <ion-col size="2"></ion-col> 
+
 
 <!-- goles EQUIPO 2 -->
-  <ion-col size="5">
+  <ion-col size="6">
     <ion-row>
       <ion-col>
       
@@ -114,7 +116,9 @@
           <ion-col  text-center size="small">
               {{item.nombre}}
           </ion-col>
-        
+          <ion-col  text-center  size="small">
+            81'
+          </ion-col>
         </ion-row>
     </ion-col>
     </ion-row>
@@ -147,8 +151,11 @@
             {{item.nombre}}
           </ion-col>
           <ion-col  text-center  size="small">
-            {{item.nombrefalta}}
+              {{item.nombrefalta}}
           </ion-col>
+          <ion-col  text-center  size="small">
+          8'
+        </ion-col>
         </ion-row>
 
     </ion-col>
@@ -167,6 +174,9 @@
           </ion-col>
           <ion-col  text-center size="small">
             {{item.nombrefalta}}
+          </ion-col>
+          <ion-col  text-center  size="small">
+            8'
           </ion-col>
         </ion-row>
     </ion-col>
