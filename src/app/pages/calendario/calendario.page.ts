@@ -32,7 +32,11 @@ fecha: Date= new Date();
 idequipo1:string;
 date: string = "";
 type: 'string';
-   
+
+calendar = {
+  locale: 'en-GB'
+};
+
 onChange($event){
   
   console.info("aqui estoy", this.date);

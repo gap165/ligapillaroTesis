@@ -11,7 +11,7 @@ import { finalize } from 'rxjs/operators';
 export class FaltasequipoPage implements OnInit {
   liga=[];
   idequipo:string;
-  buscarFalta="";
+  buscarJugador="";
   url="http://localhost/wsligapillaro/files/jugadores/";
   constructor(private storage:Storage,private webServicePillaro:WsLigaPillaroService) { }
 
@@ -36,6 +36,6 @@ export class FaltasequipoPage implements OnInit {
     })
   }
   buscar(evento){
-    this.buscarFalta=evento.detail.value;
+    this.buscarJugador=evento.detail.value;
   }
 }

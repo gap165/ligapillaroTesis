@@ -25,11 +25,11 @@ export class IngresoinformePage implements OnInit {
   idcalendarioss:string="";
   informe:string="";
   equipo1:string="";
-  resultado1:string="POR JUGAR";
+  resultado1:string="";
   puntos1:string="0";
   equipo2:string="";
   nombre_cancha="";
-  resultado2:string="POR JUGAR";
+  resultado2:string="";
   puntos2:string="0";
 
   
