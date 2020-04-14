@@ -315,29 +315,10 @@ export class IngresoalineacionPage implements OnInit {
 
   guardarGol(idjugadores) {
 
-this.ingresoGol();
 
-    this.webServicePillaro.presentLoading().then(() => {
-      this.webServicePillaro
-        .insertarGol(idjugadores, this.idcalendario, this.idequipo, this.horagol)
-        .pipe(
-          finalize(async () => {
-            // Hide the loading spinner on success or error
-            await this.webServicePillaro.loading.dismiss();
-          })
-        )
-        .subscribe(data => {
-          let datos: any = data;
-          if (datos.status == "Ok") {
-            console.log(datos);
-            /* this.alerta(datos.mensaje); */
-
-            // alert(datos.mensaje);
-          } else {
-            this.webServicePillaro.presentToast(datos.mensaje);
-          }
-        });
-    });
+    this.ingresoGol(idjugadores);
+    console.log("JUgador seleccionado ", idjugadores);
+  
   }
 
   guardarCambios(sale,entra){
@@ -436,15 +417,15 @@ this.ingresoGol();
     await alert.present();
   }
 
-  async ingresoGol() {
+  async ingresoGol(jugadorSelecionado) {
     const alert = await this.alertController.create({
   
-      header: 'Guardar gol',
+      header: 'INGRESAR MINUTO DE GOL',
       inputs: [
         {
           name: 'min',
          type: 'number',
-          placeholder: 'Minuto que se hizo el gol'
+          placeholder: 'Minuto'
         }
       ],
 
@@ -453,8 +434,33 @@ this.ingresoGol();
       { 
         text: 'GUARDAR',
         handler: (data) => {
-          this.horagol= data.min;
+          this.hora= data.min;
+          console.log("mi jugador" , jugadorSelecionado )
           console.log(data);
+
+          // llamo al  servicio 
+          this.webServicePillaro.presentLoading().then(() => {
+            this.webServicePillaro
+              .insertarGol(jugadorSelecionado, this.idcalendario, this.idequipo, this.hora)
+              .pipe(
+                finalize(async () => {
+                  // Hide the loading spinner on success or error
+                  await this.webServicePillaro.loading.dismiss();
+                })
+              )
+              .subscribe(data => {
+                let datos: any = data;
+                if (datos.status == "Ok") {
+                  console.log(datos);
+                  this.webServicePillaro.presentToast(datos.mensaje);
+      
+                  // alert(datos.mensaje);
+                } else {
+                  this.webServicePillaro.presentToast(datos.mensaje);
+                }
+              });
+          });
+
           this.routes.navigateForward('ingresoalineacion');
         }
       }]
