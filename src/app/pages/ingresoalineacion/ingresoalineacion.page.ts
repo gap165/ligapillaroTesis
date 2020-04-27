@@ -36,9 +36,11 @@ export class IngresoalineacionPage implements OnInit {
   sale:string;
   listar_cambiosR=[];
   numcambios=0;
- nomE:string;
- horagol:string;
-  
+  nomE:string;
+  horafalta:string;
+  observacion:string;
+  horaCambio:string;
+
   constructor(
     private webServicePillaro: WsLigaPillaroService,
     private storage: Storage,
@@ -234,7 +236,6 @@ export class IngresoalineacionPage implements OnInit {
     });
   }
 
-
   /* COMBO DE JUGADORES PARA CAMBIOS */
   cargarCombo(){
     this.webServicePillaro.presentLoading().then(() => {
@@ -283,34 +284,10 @@ export class IngresoalineacionPage implements OnInit {
     });
   }
 
-
   guardarFaltas(param, idjugadors) {
-    this.webServicePillaro.presentLoading().then(() => {
-      this.webServicePillaro
-        .insertarFaltas(param, idjugadors, this.idcalendario, this.idequipo)
-        .pipe(
-          finalize(async () => {
-            // Hide the loading spinner on success or error
-            await this.webServicePillaro.loading.dismiss();
-          })
-        )
-        .subscribe(data => {
-          let datos: any = data;
-          if (datos.status == "Ok") {
-            console.log(datos);
-            this.webServicePillaro.presentToast(
-              "FALTA INGRESADA CORRECTAMENTE"
-              
-            ).then(()=>{
-              this.cargarAlineacion();
-            });
 
-            // alert(datos.mensaje);
-          } else {
-            this.webServicePillaro.presentToast(datos.mensaje);
-          }
-        });
-    });
+    this.ingresoFalta(param, idjugadors);
+  
   }
 
   guardarGol(idjugadores) {
@@ -322,35 +299,8 @@ export class IngresoalineacionPage implements OnInit {
   }
 
   guardarCambios(sale,entra){
-
-    if(this.numcambios<=3){
-
-      this.webServicePillaro.presentLoading().then(() => {
-        this.webServicePillaro
-          .insertarCambio(this.idcalendario, entra, sale, 'cambio' )
-          .pipe(
-            finalize(async () => {
-              // Hide the loading spinner on success or error
-              await this.webServicePillaro.loading.dismiss();
-            })
-          )
-          .subscribe(data => {
-            let datos: any = data;
-            if (datos.status == "Ok") {
-              console.log(datos);
-              this.webServicePillaro.presentToast('CAMBIO EXITOSO');
-              this.numcambios++;
-              this.cargarCambiosRealizados(entra, sale);
-  
-              // alert(datos.mensaje);
-            } else {
-              this.webServicePillaro.presentToast('HA REALIZADOS TODOS LOS CAMBIOS PERMITIDOS');
-            }
-          });
-      });
-
-    }
-
+    this.ingresoCambio(entra, sale);
+    console.log("Cambio ", entra, sale);
   }
 
   verificarJ(textoQR) {
@@ -452,7 +402,13 @@ export class IngresoalineacionPage implements OnInit {
                 let datos: any = data;
                 if (datos.status == "Ok") {
                   console.log(datos);
-                  this.webServicePillaro.presentToast(datos.mensaje);
+                  this.webServicePillaro.presentToast(
+
+                    "GOL INGRESADO CORRECTAMENTE"
+                    
+                  ).then(()=>{
+                    this.cargarAlineacion();
+                  });
       
                   // alert(datos.mensaje);
                 } else {
@@ -460,6 +416,129 @@ export class IngresoalineacionPage implements OnInit {
                 }
               });
           });
+
+          this.routes.navigateForward('ingresoalineacion');
+        }
+      }]
+    });
+  
+    await alert.present();
+  }
+  
+
+  async ingresoFalta(parametro, jugadorSelec) {
+    const alert = await this.alertController.create({
+  
+      header: 'FALTA',
+      inputs: [
+        {
+          name: 'minF',
+         type: 'number',
+          placeholder: 'Minuto'
+        }
+      ],
+
+      buttons: [
+    
+      { 
+        text: 'GUARDAR',
+        handler: (data) => {
+       
+          this.horafalta = data.minF;
+          
+          console.log("mi jugador" , parametro, jugadorSelec )
+          console.log(data);
+
+          // llamo al  servicio 
+         
+          this.webServicePillaro.presentLoading().then(() => {
+            this.webServicePillaro
+              .insertarFaltas(parametro, jugadorSelec, this.idcalendario, this.idequipo, this.horafalta)
+              .pipe(
+                finalize(async () => {
+                  // Hide the loading spinner on success or error
+                  await this.webServicePillaro.loading.dismiss();
+                })
+              )
+              .subscribe(data => {
+                let datos: any = data;
+                if (datos.status == "Ok") {
+                  console.log(datos);
+           
+                  this.webServicePillaro.presentToast(
+      
+                    "FALTA INGRESADA CORRECTAMENTE"
+                    
+                  ).then(()=>{
+                    this.cargarAlineacion();
+                  });
+      
+                  // alert(datos.mensaje);
+                } else {
+                  this.webServicePillaro.presentToast("ERROR AL INGRESAR LA FALTA");
+                }
+              });
+          });
+
+          this.routes.navigateForward('ingresoalineacion');
+        }
+      }]
+    });
+  
+    await alert.present();
+  }
+ 
+  async ingresoCambio(jentra, jsale) {
+    const alert = await this.alertController.create({
+  
+      header: 'INGRESAR MINUTO DE CAMBIO',
+      inputs: [
+        {
+          name: 'minC',
+         type: 'number',
+          placeholder: 'Minuto'
+        }
+      ],
+
+      buttons: [
+    
+      { 
+        text: 'GUARDAR',
+        handler: (data) => {
+          this.horaCambio= data.minC;
+          console.log("mi jugador" , jentra, jsale )
+          console.log(data);
+
+          // llamo al  servicio 
+         
+    if(this.numcambios<=3){
+
+      this.webServicePillaro.presentLoading().then(() => {
+        this.webServicePillaro
+          .insertarCambio(this.idcalendario, jentra, jsale, this.horaCambio, 'cambio' )
+          .pipe(
+            finalize(async () => {
+              // Hide the loading spinner on success or error
+              await this.webServicePillaro.loading.dismiss();
+            })
+          )
+          .subscribe(data => {
+            let datos: any = data;
+            if (datos.status == "Ok") {
+              console.log(datos);
+              this.webServicePillaro.presentToast('CAMBIO EXITOSO');
+              this.numcambios++;
+              this.cargarCambiosRealizados(jentra, jsale);
+  
+              // alert(datos.mensaje);
+            } else {
+              this.webServicePillaro.presentToast('HA REALIZADOS TODOS LOS CAMBIOS PERMITIDOS');
+            }
+          });
+      });
+
+    }
+
 
           this.routes.navigateForward('ingresoalineacion');
         }

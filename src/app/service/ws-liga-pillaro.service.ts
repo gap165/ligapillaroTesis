@@ -546,7 +546,7 @@ actArbitro(idarbitro:string, direccion:string, telefono:string,  celular:string,
   }),{headers:headers});
 } */
 
-public  insertarFaltas( nombrefalta:string, idjugadors:string, idcalendarios:string, equipo:string){
+public  insertarFaltas( nombrefalta:string, idjugadors:string, idcalendarios:string, equipo:string, hora:string ){
   let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarFaltas';
   let body = new HttpParams();
 
@@ -554,6 +554,8 @@ public  insertarFaltas( nombrefalta:string, idjugadors:string, idcalendarios:str
   body = body.set('idjugadors', idjugadors);
   body =  body.set('idcalendarios', idcalendarios);
   body =  body.set('equipo', equipo);
+  body =  body.set('hora', hora);
+
   return   this.http.post( urlServerc, body , {responseType:'json'}  );
 }
 
@@ -586,13 +588,14 @@ public  insertarGol(idjugadores:string, idcalendarios:string, equipo: string, ho
   return   this.http.post( urlServerc, body , {responseType:'json'}  );
 }
 
-public insertarCambio( idcalendarios:string, entra:string, sale:string, observacion:string){
+public insertarCambio( idcalendarios:string, entra:string, sale:string, hora:string, observacion:string){
   let  urlServerc =  'http://localhost/wsligapillaro/ajax/ligapillaro.php/?op=insertarCambio';
   let body = new HttpParams();
 
   body = body.set('idcalendarios', idcalendarios);
   body =  body.set('entra', entra);
   body = body.set('sale', sale);
+  body = body.set('hora', hora);
   body =  body.set('observacion', observacion);
   return   this.http.post( urlServerc, body , {responseType:'json'}  );
 }

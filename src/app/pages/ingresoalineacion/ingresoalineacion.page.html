@@ -95,9 +95,9 @@
             <ion-grid >
               <ion-row>
                 <ion-col size="2">
-                  <ion-avatar>
+               <ion-avatar>
                 <img [src]="url+item.fotosale">  
-                  </ion-avatar>
+                  </ion-avatar> 
                 
                 </ion-col>
                 <ion-col size="10">
@@ -164,14 +164,16 @@
             <ion-grid>
               <ion-row>
                 <ion-col size="2">
-                  <ion-avatar>
+                 <ion-avatar>
                 <img [src]="url+item.fotos">
-                  </ion-avatar>
+                  </ion-avatar> 
                 </ion-col>
                 <ion-col size="10">
                  <ion-label class="ion-text-wrap">
                    <ion-text color="primary">  
-                     <h3 class="ion-text-uppercase" >{{item.nombre1+' '+item.nombre2+' '+item.apellido1+' '+item.apellido2 }}</h3>
+                     <h3 class="ion-text-uppercase" >
+                       {{item.nombre1+' '+item.nombre2+' '+item.apellido1+' '+item.apellido2 }}
+                      </h3>
                    </ion-text>
                    <ion-text>
                     <h2>
@@ -343,7 +345,12 @@
   <ion-row>
 
     <ion-col text-center size="2">
-    9
+      <ion-text
+      text-justify
+      class="ion-text-wrap"
+      color="primary" >  
+      {{item.hora}}'
+      </ion-text>   
     </ion-col>
 
     <ion-col text-center size="5">
