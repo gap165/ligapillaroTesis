@@ -475,7 +475,7 @@ export class IngresoalineacionPage implements OnInit {
       
                   // alert(datos.mensaje);
                 } else {
-                  this.webServicePillaro.presentToast("ERROR AL INGRESAR LA FALTA");
+                  this.webServicePillaro.presentToast("EL JUGADOR YA ESTA EXPULSADO");
                 }
               });
           });

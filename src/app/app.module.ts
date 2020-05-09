@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+import { LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,12 +28,14 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(),
     AppRoutingModule],
+
     providers: [
     StatusBar,
     WsLigaPillaroService,
     SplashScreen,
     QRScanner,
     BarcodeScanner,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

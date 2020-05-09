@@ -89,10 +89,10 @@
        <ion-col style="color: azure;"  size="4">Equipo1</ion-col>           
        <ion-col style="color: azure;" size="2">VS</ion-col>
        <ion-col style="color: azure;" size="4">Equipo2</ion-col>
+     
    </ion-row>
   
    <ion-row *ngFor="let item of lista_calendario" style="background-color: #f3e69e;" >
-    
       <ion-col 
         size="2">
           <b>{{item.hora}}</b>
@@ -112,15 +112,16 @@
       <ion-col size="4"> 
       <B (click)="llamar(item.idcalendario,item.idequipo2)">{{item.equipo2}}</B>
       </ion-col>
+     <ion-grid>
+      <ion-row >
+        <ion-col align="center" size="6" >{{item.nombre_cancha}}</ion-col>
+        <ion-col align  ="center" size="6" >{{item.ubicacion}}</ion-col>
+      </ion-row>
+     </ion-grid>
    </ion-row>
+    
   </ion-grid> 
 
-<!--   <ion-input    placeholder="Seleccione una fecha"
-  type="date"
-  value="{{ fecha | date: 'yyyy-MM-dd' }}"
-  [(ngModel)]="fecha"
-  (ionChange)="cargarCalendario()"> SELECCIONAR FECHA: 
-  
-  </ion-input>  -->
 
+<ion-button (click)="Notificaciones()"> Notifiacion</ion-button>
 </ion-content>

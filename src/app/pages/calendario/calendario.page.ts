@@ -3,8 +3,9 @@ import { WsLigaPillaroService } from '../../service/ws-liga-pillaro.service';
 import { finalize } from 'rxjs/operators';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Storage } from '@ionic/storage';
-import { ActionSheetController, NavController } from '@ionic/angular';
+import { ActionSheetController, NavController, Platform, AlertController } from '@ionic/angular';
 import { CompileShallowModuleMetadata } from '@angular/compiler';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 
 @Component({
@@ -14,28 +15,42 @@ import { CompileShallowModuleMetadata } from '@angular/compiler';
 })
 
 export class CalendarioPage implements OnInit {
+  
+
+  lista_temporadas=[];
+  temporadas:string;
+  lista_series=[];
+  lista_categorias=[];
+  lista_calendario=[];
+  series:string;
+  idarbitros:string;
+  categorias:string;
+  buscarCale="";
+  fecha: Date= new Date();
+  idequipo1:string;
+  date: string = "";
+  type: 'string';
+ 
 
   constructor(private webServicePillaro:WsLigaPillaroService,
   private storage:Storage,
   private actionSheetController: ActionSheetController,
-  private routes:NavController ) { }
-lista_temporadas=[];
-temporadas:string;
-lista_series=[];
-lista_categorias=[];
-lista_calendario=[];
-series:string;
-idarbitros:string;
-categorias:string;
-buscarCale="";
-fecha: Date= new Date();
-idequipo1:string;
-date: string = "";
-type: 'string';
+  private routes:NavController,
+  private localNotification: LocalNotifications,
+  private plt: Platform,
+  ) {   }
 
-calendar = {
-  locale: 'en-GB'
-};
+
+Notificaciones() {
+  this.localNotification.schedule({
+    id: 1,
+    title: 'Arbitros',
+    text: 'Notificacion prueba',
+    data: { secret: 'secret' },
+    trigger : {in: 5, unit: ELocalNotificationTriggerUnit.SECOND}
+  });
+}
+
 
 onChange($event){
   
@@ -44,7 +59,6 @@ onChange($event){
   this.webServicePillaro.listCalendario( $event.format('YYYY-MM-DD')).pipe(
     finalize(async () => {
         await this.webServicePillaro.loading.dismiss();
-        
     }))
   .subscribe((data=>{
     let datos:any=data
@@ -71,7 +85,7 @@ onChange($event){
     });
     
 
-/*  this.webServicePillaro.presentLoading().then(()=>{
+ /*this.webServicePillaro.presentLoading().then(()=>{
       this.webServicePillaro.listTemporadas().pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
@@ -128,8 +142,6 @@ onChange($event){
   } */
 
   cargarCalendario(){
-
-    
       this.webServicePillaro.listCalendario(this.fecha).pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
@@ -138,16 +150,12 @@ onChange($event){
         let datos:any=data
         console.log(datos);
         if(datos.status=="Ok"){
-        
           this.lista_calendario=datos.calendarios;
-          
-
         }else{
-          this.webServicePillaro.presentToast(datos.mensaje);
+          this.webServicePillaro.presentToast('NO HAY PARTIDOS EN ESTA FECHA');
           this.lista_calendario=[' '];
         }
-      }));
-    
+      })); 
   }
   /////SUB-MENU DE INGRESOS
 async llamar(calendario, idequipo1){
@@ -158,7 +166,6 @@ async llamar(calendario, idequipo1){
     "calendario":calendario,
     "idequipo":idequipo1
   }
-
   this.storage.set('calendario',datos).then(()=>{
  //envia a la pagina de ingreso de alineacion
  this.routes.navigateForward('ingresoalineacion');
