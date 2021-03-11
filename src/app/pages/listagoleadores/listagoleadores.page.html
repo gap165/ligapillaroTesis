@@ -5,13 +5,20 @@
           <ion-back-button text=" " defaultHref="/inicio"></ion-back-button>
       </ion-buttons>
       <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
-      <ion-title size="undefined" style="font-family:Times" align="center">Top de goleadores</ion-title>
+      <ion-title size="undefined" style="font-family:Times" align="center">Goleadores por equipo</ion-title>
   </ion-toolbar>
+
   <ion-toolbar>
+  <!-- BUSCAR EQUIPOS -->
+    <ion-searchbar animated placeholder="Buscar por nombre de jugador"
+    (ionChange)="buscar($event)">  </ion-searchbar>
+
+    </ion-toolbar>
+    <ion-toolbar>
     <!-- FILTROS -->
    
   <ion-grid>
-    <ion-label text-center size="undefined" style="font-family:'Franklin Gothic Medium'">FILTRAR POR CATEGORIA</ion-label>
+    <ion-label text-center size="undefined" style="font-family:'Franklin Gothic Medium'">FILTRAR POR EQUIPO</ion-label>
     <ion-row>
 <!--     
       <ion-col size="6">
@@ -35,8 +42,8 @@
           <ion-item-group>
               <ion-item>
                   <ion-label position="floating" ></ion-label>
-                 <ion-select  placeholder="CATEGORIA" [(ngModel)]="idcategoria" (ionChange)="cargaGoleadores()" >
-                   <ion-select-option *ngFor="let item of combo_categoria" value='{{item.idcategoria}}' >{{item.nombre_cate}}</ion-select-option>
+                 <ion-select  placeholder="SELECCIONE EQUIPO" [(ngModel)]="equipo" (ionChange)="cargaGoleadores()" >
+                   <ion-select-option *ngFor="let item of combo_equipo" value='{{item.idequipo}}' >{{item.nombreequipo}}</ion-select-option>
                  </ion-select>
                 </ion-item>
           </ion-item-group>
@@ -62,13 +69,13 @@
           </ion-col>
           <ion-col size="10">
             <ion-label class="ion-text-wrap">
-              <ion-text class="ion-text-uppercase" color="primary">
+              <!-- <ion-text class="ion-text-uppercase" color="primary">
                 <h3>Equipo: {{item.nombreequipo}}</h3>
-              </ion-text>
-              <ion-text>
-               <p>Jugador: {{item.nombre1}} {{item.apellido1}} {{item.apellido2}}</p>
+              </ion-text> -->
+              <ion-text class="ion-text-uppercase" color="primary">
+               <p>{{item.nombre1}} {{item.apellido1}} {{item.apellido2}}</p>
              </ion-text>
-              <ion-text color="medium">
+              <ion-text class="ion-text-center" color="medium">
                 <p>Número de goles {{item.Ngoles}}</p>
               </ion-text>
              

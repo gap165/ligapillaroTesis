@@ -83,6 +83,14 @@ const routes: Routes = [
     path: 'pruebacale',
     loadChildren: () => import('./pages/pruebacale/pruebacale.module').then( m => m.PruebacalePageModule)
   },
+  {
+    path: 'reporteinfo',
+    loadChildren: () => import('./pages/reporteinfo/reporteinfo.module').then( m => m.ReporteinfoPageModule)
+  },
+  {
+    path: 'nopitar',
+    loadChildren: () => import('./pages/nopitar/nopitar.module').then( m => m.NopitarPageModule)
+  },
   
  
 ];

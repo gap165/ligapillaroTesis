@@ -61,7 +61,7 @@ export class IngresoinformePage implements OnInit {
     
 
    
-        this.webServicePillaro
+      this.webServicePillaro
           .golesEquipo(this.idcalendario, calendario.idequipo1, calendario.idequipo2)
           .subscribe(data => {
             let datos: any = data;
@@ -80,17 +80,24 @@ export class IngresoinformePage implements OnInit {
                 this.puntos2='EMPATE';
                 this.puntos1='EMPATE';
               }
+
+
                 //###########faltas equipo 1
 
-                this.webServicePillaro
+              this.webServicePillaro
                 .faltasEquipo1(this.idcalendario, calendario.idequipo1)
                 .subscribe(data => {
                   let datos: any = data;
                   if (datos.status == "Ok") {
-                    console.log(datos);
-                    if(datos.faltas!='FALTAS'){
-                      this.falatsequipo1=datos.faltas;
+                    console.log('faltas equipo 1',datos);
+                                       if(datos.faltas!='FALTAS'){
+                                             this.falatsequipo1=datos.faltas;
+                                           } 
+                    }else {
+                      this.webServicePillaro.presentToast('EL EQUIPO ' + this.equipo1 + ' NO TIENE TARJETAS EN EL PARTIDO ');
                     }
+                   });
+
                     //##--falstas equipo 2
 
                         this.webServicePillaro
@@ -102,9 +109,9 @@ export class IngresoinformePage implements OnInit {
                               this.faltasequipo2=datos.faltas;
                             }
                            
-                            console.log(datos);
+                            console.log('faltas equipo 2', datos);
                           } else {
-                            this.webServicePillaro.presentToast(datos.mensaje);
+                            this.webServicePillaro.presentToast( 'EL EQUIPO ' + this.equipo2 + ' NO TIENE TARJETAS EN EL PARTIDO');
                           }
                          });
 
@@ -120,15 +127,15 @@ export class IngresoinformePage implements OnInit {
                               this.golesequipo1=datos.goles;
                             }
                            
-                            console.log(datos);
+                            console.log('goles equipo 1',datos);
                           } else {
-                            this.webServicePillaro.presentToast(datos.mensaje);
+                            this.webServicePillaro.presentToast('EL EQUIPO ' + this.equipo1 + ' NO A MARCADO GOLES ');
                           }
                          }); 
 
                            //##--goless equipo 2
 
-                        this.webServicePillaro
+              this.webServicePillaro
                         .golesEquipo2(this.idcalendario, calendario.idequipo2)
                         .subscribe(data => {
                           let datos: any = data;
@@ -136,25 +143,23 @@ export class IngresoinformePage implements OnInit {
                             if(datos.goles!='GOLES'){
                               this.golesequipo2=datos.goles;
                             }
-                           
-                            console.log(datos);
+
+                            console.log('goles equipo 2',datos);
                           } else {
-                            this.webServicePillaro.presentToast(datos.mensaje);
+                            this.webServicePillaro.presentToast('EL EQUIPO ' + this.equipo2 + ' NO A MARCADO GOLES ');
                           }
                          });
 
-                  } else {
-                    this.webServicePillaro.presentToast(datos.mensaje);
-                  }
-                 });
                 ///////////////////////////////
               
             } else {
-       /*        this.webServicePillaro.presentToast(''); */
+           /* this.webServicePillaro.presentToast(''); */
             }
          
       });
 
+
+      
     });
   }
 
@@ -202,7 +207,7 @@ export class IngresoinformePage implements OnInit {
             this.webServicePillaro.presentToast('DATOS NO GUARDADOS');
           }
         }));
-  })
+  });
    }
 
 }
@@ -217,7 +222,7 @@ async alerta(mensaje) {
     {
       text: 'ACEPTAR',
       handler: () => {
-        this.routes.navigateForward('inicio');
+        this.routes.navigateForward('login');
       }
     }]
   });

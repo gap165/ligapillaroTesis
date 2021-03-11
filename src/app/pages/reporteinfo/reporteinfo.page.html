@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-back-button text=" " defaultHref="/calendario"></ion-back-button>
+  </ion-buttons>
+  <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
+    <ion-title size="undefined" style="font-family:Times" align="center">Reportes de los informes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-datetime 
+    placeholder="Buscar informes por fecha"
+    cancelText="Cancelar"
+    doneText="Seleccionar"
+    month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+    day-names="lunes, martes,miercoles,jueves,viernes,sabado,domingo"
+    min="2020-01-01"
+    max="2050-01-01"
+    value="{{ fecha | date: 'yyyy-MM-dd' }}"
+    displayFormat=" YYYY MMMM, DD" 
+    [(ngModel)]="fecha"
+    (ionChange)="cargarInforme()">
+    </ion-datetime> 
+</ion-item> 
+  <ion-card> 
+   
+<ion-grid  *ngFor = "let item of repo">
+  <ion-toolbar>
+    <ion-thumbnail slot="start"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
+      
+      <ion-title size="small" style="font-family:Times" align="center">LIGA DEPORTIVA CANTONAL PILLARO</ion-title>
+      <br>
+      <ion-title size="small" style="font-family:Times" align="center">INFORME DE ÁRBITRO</ion-title>
+    </ion-toolbar>
+  <ion-label style="display:none;" >{{item.idcalendario}}</ion-label>
+<ion-row style="background-color: rgb(236, 250, 255);"><ion-col text-center>
+  
+  <ion-label text-center><b>FECHA DEL PARTIDO: {{item.fecha}}</b></ion-label>
+
+</ion-col></ion-row>
+<ion-row style="background-color: rgb(236, 250, 255);"><ion-col text-center>
+  <ion-label text-center><b>ESTADIO: {{item.nombre_cancha}}</b></ion-label>
+</ion-col></ion-row>
+
+  <ion-row style="background-color: rgb(156, 217, 238);">
+       
+    <ion-col text-center size="5"><b>EQUIPO 1</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>EQUIPO 2</b></ion-col>
+    
+  
+  </ion-row>
+  
+  <ion-row style="background-color: rgb(236, 250, 255);">
+    <ion-col text-center size="5">{{item.equipo1}}</ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5">{{item.equipo2}}</ion-col>
+   
+  </ion-row>
+
+  <ion-row style="background-color: rgb(156, 217, 238);">
+       
+    <ion-col text-center size="5"><b>MARCADOR</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>MARCADOR</b></ion-col>
+    
+  
+  </ion-row>
+  <ion-row style="background-color: rgb(236, 250, 255);">
+    <ion-col text-center size="5">{{item.resultado1}}</ion-col>
+    <ion-col text-center size="2"> </ion-col>
+    <ion-col text-center size="5">{{item.resultado2}}</ion-col>
+   
+  </ion-row>
+  <ion-row style="background-color: rgb(156, 217, 238);">
+       
+    <ion-col text-center size="5"><b>RESULTADO</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>RESULTADO</b></ion-col>
+    
+  
+  </ion-row>
+  <ion-row style="background-color: rgb(236, 250, 255);">
+    <ion-col  size="5" text-center>{{item.puntos1}}</ion-col>
+    <ion-col size="2"></ion-col>
+    <ion-col  size="5" text-center>{{item.puntos2}}</ion-col>
+   
+  </ion-row>
+
+  <!-- goles -->
+
+  <ion-row style="background-color: rgb(156, 217, 238);">
+
+    <ion-col text-center ><b>NÚMERO DE GOLES EN EL PARTIDO</b></ion-col>     
+  </ion-row>
+
+  <ion-row style="background-color: rgb(156, 217, 238);">
+    <ion-col text-center size="5"><b>EQUIPO 1</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>EQUIPO 2</b></ion-col>
+  </ion-row>
+
+  <ion-row style="background-color: rgb(236, 250, 255);">
+
+
+
+      <!-- faltas equipo 1 -->
+      <ion-col text-center size="5">{{item.NgE1}}</ion-col>
+      <ion-col text-center size="2"></ion-col>
+      <ion-col text-center size="5">{{item.NgE2}}</ion-col>
+  
+    </ion-row>
+
+    <!-- fin goles -->
+
+<!-- faltas -->
+  <ion-row style="background-color: rgb(156, 217, 238);">
+
+    <ion-col text-center ><b>NÚMERO DE TARJETAS EN EL PARTIDO</b></ion-col>     
+  </ion-row>
+
+  <ion-row style="background-color: rgb(156, 217, 238);">
+    <ion-col text-center size="5"><b>EQUIPO 1</b></ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5"><b>EQUIPO 2</b></ion-col>
+  </ion-row>
+
+  <ion-row style="background-color: rgb(236, 250, 255);">
+
+    <!-- faltas equipo 1 -->
+    <ion-col text-center size="5">{{item.NtE1}}</ion-col>
+    <ion-col text-center size="2"></ion-col>
+    <ion-col text-center size="5">{{item.NtE2}}</ion-col>
+  </ion-row>
+
+  <!-- fin faltas -->
+
+  <ion-row >
+    <ion-label></ion-label>
+    <ion-label >OBSERVACIONES</ion-label>
+    <ion-item >
+     
+      <ion-textarea name="comentarios" rows="10" cols="40">{{item.informe}}</ion-textarea>
+    </ion-item>
+
+  </ion-row>
+
+  </ion-grid>
+
+  </ion-card>
+    
+</ion-content>
+

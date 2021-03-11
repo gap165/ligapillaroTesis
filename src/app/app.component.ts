@@ -14,6 +14,9 @@ import { TablaposicionesPage } from './pages/tablaposiciones/tablaposiciones.pag
 import { InicioPage } from './pages/inicio/inicio.page';
 import { Title } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { WsLigaPillaroService } from './service/ws-liga-pillaro.service';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -26,11 +29,11 @@ export class AppComponent {
   /* menu */
   public Paginas=[
     {title:'Inicio',url:'/inicio',icon:'home'},
-    {title:'Perfil Arbitro',url:'/perfil-arbi',icon:'person'},
+    {title:'Datos del Arbitro',url:'/perfil-arbi',icon:'person'},
     {title:'Encuentros Deportivos',url:'/calendario',icon:'calendar'},
-    {title:'Equipos',url:'/equipos',icon:'people'},
+    {title:'Equipos Participantes',url:'/equipos',icon:'people'},
    /*  {title:'Tabla de Posiciones',url:'/tablaposiciones',icon:'stats'}, */
-    {title:'Lista de Goleadores',url:'/listagoleadores',icon:'football'},
+    {title:'Goleadores por Equipo',url:'/listagoleadores',icon:'football'},
     {title:'Cerrar Sesión',url:'/login',icon:'close-circle'}
 ];
 /* fin-menu */
@@ -40,21 +43,27 @@ usuario='';
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private localNotifications: LocalNotifications,
+    private webServicePillaro: WsLigaPillaroService,
+    private storage: Storage
   ) {
     this.initializeApp();
-  }
 
+  }
+  
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-     this. consultausuario();
+      this.consultausuario();
+      
     });
   }
 
+ 
    consultausuario(){
-   
 
    }
+    
 }

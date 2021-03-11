@@ -15,6 +15,7 @@ import { WsLigaPillaroService } from './service/ws-liga-pillaro.service';
 import { PipesModule } from './pipes/pipes.module';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 
 
@@ -36,6 +37,7 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
     QRScanner,
     BarcodeScanner,
     LocalNotifications,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

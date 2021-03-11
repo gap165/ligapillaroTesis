@@ -71,18 +71,6 @@
       </ion-list> -->
 
   <ion-grid style="background-color:#045323" > 
-<!--    <ion-row display style="background-color:  #045323;">
-   <ion-col class="ion-text-center" >
-        <h5 style="color: azure;" align="center"> LIGA DEPORTIVA CANTONAL PILLARO </h5>
-        
-  </ion-col>
-  </ion-row>
-  
-   <ion-row style="background-color:#045323;">
-     <ion-col style="color: azure;" size="small" class="ion-text-center">
-        PROGRAMACIÓN DE CAMPEONATO DE FUTBOL INSTITUCIONAL     
-     </ion-col>
-   </ion-row> -->
 
        <ion-row  style="background-color:#045323;">
        <ion-col style="color: azure;" size="2">Hora</ion-col>
@@ -105,7 +93,7 @@
       </ion-col>      
 
       <ion-col
-      (click)="ingresoCalendario(item)"
+      
       size="2"  >
         <b>VS</b>
       </ion-col>
@@ -115,13 +103,15 @@
      <ion-grid>
       <ion-row >
         <ion-col align="center" size="6" >{{item.nombre_cancha}}</ion-col>
-        <ion-col align  ="center" size="6" >{{item.ubicacion}}</ion-col>
+        <ion-col align  ="center" size="6"
+        (click)="ingresoCalendario(item)"><ion-badge color="primary">Ingreso del Informe</ion-badge></ion-col>
       </ion-row>
      </ion-grid>
    </ion-row>
     
+   
   </ion-grid> 
 
 
-<ion-button (click)="Notificaciones()"> Notifiacion</ion-button>
+<ion-button class="buttonss" color="success" expand="block" fill="clear" (click)="reporteInfo()" >INFORMES DE LA FECHA</ion-button>
 </ion-content>

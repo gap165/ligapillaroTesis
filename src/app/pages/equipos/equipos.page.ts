@@ -18,7 +18,7 @@ export class EquiposPage implements OnInit {
   idcategoria:string;
   buscarEquipo="";
 
-  url="http://localhost/wsligapillaro/files/equipos/";
+  url="http://192.168.1.11/wsligapillaro/files/equipos/";
 
   constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage,private routes:NavController,private actionSheetController:ActionSheetController) { 
    
@@ -95,6 +95,7 @@ cargarEquipo(){
         this.lista_equipos=datos.equipos;
         console.log(this.lista_equipos);
       }else{
+        this.lista_equipos=[' '];
         this.webServicePillaro.presentToast(datos.mensaje);
       }
     }));

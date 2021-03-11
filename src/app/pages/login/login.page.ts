@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class LoginPage implements OnInit {
   ping:any;
   usuario:string='1804567876';
-  clave:string='123';
+  clave:string='1804567876';
   
   Datos:any=[]
   constructor(private webServicePillaro:WsLigaPillaroService,private menu:MenuController, private storage:Storage,private router:NavController) 

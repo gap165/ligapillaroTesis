@@ -30,7 +30,8 @@ export class CalendarioPage implements OnInit {
   idequipo1:string;
   date: string = "";
   type: 'string';
- 
+ idarbitro:string;
+ fechaInfo: Date= new Date();
 
   constructor(private webServicePillaro:WsLigaPillaroService,
   private storage:Storage,
@@ -41,22 +42,22 @@ export class CalendarioPage implements OnInit {
   ) {   }
 
 
-Notificaciones() {
+Notificaciones(texto) {
   this.localNotification.schedule({
-    id: 1,
     title: 'Arbitros',
-    text: 'Notificacion prueba',
-    data: { secret: 'secret' },
-    trigger : {in: 5, unit: ELocalNotificationTriggerUnit.SECOND}
+    text: texto
+  /*   data: { secret: 'secret' }, */
+   /*  trigger : {in: 5, unit: ELocalNotificationTriggerUnit.SECOND} */
   });
 }
 
-
 onChange($event){
-  
+  this.storage.get('usuarioArbi').then((usuario)=>{
+    this.idarbitros=usuario.datos.idarbitro;
+    console.log(this.idarbitros);
   console.info("aqui estoy", this.date);
   console.log("Datos del calendario", $event.format('YYYY-MM-DD'));
-  this.webServicePillaro.listCalendario( $event.format('YYYY-MM-DD')).pipe(
+  this.webServicePillaro.listCalendario( $event.format('YYYY-MM-DD'), this.idarbitros).pipe(
     finalize(async () => {
         await this.webServicePillaro.loading.dismiss();
     }))
@@ -72,7 +73,7 @@ onChange($event){
       this.lista_calendario=[' '];
     }
   }));
-  ///
+});
 } 
 
   ngOnInit() {
@@ -80,12 +81,9 @@ onChange($event){
     this.storage.get('usuarioArbi').then((usuario)=>{
       this.idarbitros=usuario.datos.idarbitro;
       console.log(usuario);
-      
-
     });
     
-
- /*this.webServicePillaro.presentLoading().then(()=>{
+    /*this.webServicePillaro.presentLoading().then(()=>{
       this.webServicePillaro.listTemporadas().pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
@@ -141,8 +139,8 @@ onChange($event){
     });
   } */
 
-  cargarCalendario(){
-      this.webServicePillaro.listCalendario(this.fecha).pipe(
+cargarCalendario(){
+      this.webServicePillaro.listCalendario(this.fecha, this.idarbitros).pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
         }))
@@ -150,6 +148,7 @@ onChange($event){
         let datos:any=data
         console.log(datos);
         if(datos.status=="Ok"){
+          
           this.lista_calendario=datos.calendarios;
         }else{
           this.webServicePillaro.presentToast('NO HAY PARTIDOS EN ESTA FECHA');
@@ -157,6 +156,15 @@ onChange($event){
         }
       })); 
   }
+ /* Aqui quiero mandar los datos de calendario */
+  reporteInfo(calendario=this.lista_calendario){  
+    
+    this.storage.set('calendario', calendario).then(()=>{
+      //envia a la pagina de informe
+      this.routes.navigateRoot('/reporteinfo');
+    });
+  }
+
   /////SUB-MENU DE INGRESOS
 async llamar(calendario, idequipo1){
   console.log(calendario);
@@ -177,7 +185,8 @@ async llamar(calendario, idequipo1){
    
     const actionSheet = await this.actionSheetController.create({
       header: 'Partidos',
-      buttons: [{
+      buttons: [
+        {
     
         text: 'Ingresar Informe',
         icon: 'contacts',
@@ -188,8 +197,19 @@ async llamar(calendario, idequipo1){
             this.routes.navigateForward('ingresoinforme');
           });
        }
-      }, 
-
+      },
+      {
+    
+        text: 'No pitar',
+        icon: 'close-circle',
+        handler: () => {
+          
+          this.storage.set('calendario',calendario).then(()=>{
+            //envia a la pagina de pitar
+            this.routes.navigateForward('nopitar');
+          });
+       }
+      },
      {
         text: 'Cancelar',
         icon: 'close',

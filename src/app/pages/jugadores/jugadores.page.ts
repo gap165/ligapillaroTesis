@@ -16,11 +16,12 @@ export class JugadoresPage implements OnInit {
   idequipo:string;
   nequipo:string;
   buscarJugador="";
-  url="http://localhost/wsligapillaro/files/jugadores/";
+  url="http://192.168.1.11/wsligapillaro/files/jugadores/";
   constructor(private storage:Storage,private webServicePillaro:WsLigaPillaroService,private routes:NavController, private actionSheetController:ActionSheetController ) { }
 
   ngOnInit() {
     this.storage.get('idequipo').then((data)=>{
+      console.log('entra', data);
       this.idequipo=data.idequipo;
       this.nequipo=data.nombreequipo;
       this.webServicePillaro.presentLoading().then(()=>{
@@ -38,7 +39,7 @@ export class JugadoresPage implements OnInit {
           }
         }));
       });
-    })
+    });
   }
 
   async MostarGolesyHuella(idjugador:string) {

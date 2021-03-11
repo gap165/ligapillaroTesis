@@ -19,11 +19,14 @@ export class PerfilArbiPage implements OnInit {
   celular:string;
   telefono:string;
   correo:string;
-
   arbitro=[];
-  url="http://localhost/wsligapillaro/files/arbitros/";
+  url="http://192.168.1.11/wsligapillaro/files/arbitros/";
 
-  constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage) { }
+
+
+  constructor(private webServicePillaro:WsLigaPillaroService, private storage:Storage) {
+  
+   }
 
   ngOnInit() {
 
@@ -66,7 +69,7 @@ export class PerfilArbiPage implements OnInit {
     }else{
       this.webServicePillaro.presentLoading().then(()=>{
         
-        this.webServicePillaro.actArbitro(this.idarbitro,this.direccion, this.telefono, this.celular, this.correo ).pipe(
+        this.webServicePillaro.actArbitro(this.idarbitro, this.nombre, this.apellido, this.direccion, this.telefono, this.celular, this.correo ).pipe(
             finalize(async () => {
                 // Hide the loading spinner on success or error
                 await this.webServicePillaro.loading.dismiss();

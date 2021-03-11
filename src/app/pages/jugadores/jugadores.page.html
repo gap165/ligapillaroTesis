@@ -16,7 +16,7 @@
   
   <ion-content>
   
-      <ion-card *ngFor="let item of liga | buscador:buscarJugador: 'nombreJ'" (click)="MostarGolesyHuella(item)">
+      <ion-card *ngFor="let item of liga | buscador:buscarJugador: 'nombreJ'" >
        
           <ion-grid>
 
@@ -26,7 +26,7 @@
               <ion-row> <br> </ion-row>
               <ion-row> <br> </ion-row>
               
-                <img [src]="url+item.fotoos">
+                <img [src]="url+item.fotos">
             
              </ion-col>
 

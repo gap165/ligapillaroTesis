@@ -12,7 +12,7 @@ export class FaltasequipoPage implements OnInit {
   liga=[];
   idequipo:string;
   buscarJugador="";
-  url="http://localhost/wsligapillaro/files/jugadores/";
+  url="http://192.168.1.11/wsligapillaro/files/jugadores/";
   constructor(private storage:Storage,private webServicePillaro:WsLigaPillaroService) { }
 
   ngOnInit() {

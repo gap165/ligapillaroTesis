@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-back-button text=" " defaultHref="/calendario"></ion-back-button>
+  </ion-buttons>
+  <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
+    <ion-title size="undefined" style="font-family:Times" align="center">Observacion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+<ion-toolbar>
+  <ion-thumbnail slot="start"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
+    
+    <ion-title size="small" style="font-family:Times" align="center">LIGA DEPORTIVA CANTONAL PILLARO</ion-title>
+    <br>
+    <ion-title size="small" style="font-family:Times" align="center">RAZONES POR LAS CUALES NO PUEDE PITAR</ion-title>
+  </ion-toolbar>
+  <ion-card> 
+<ion-grid>
+ 
+  <ion-row >
+
+    <ion-item >
+      <ion-label class="uk-text-small" position="floating">OBSERVACIONES</ion-label>
+      <ion-textarea  name="comentarios" rows="10" cols="40" [(ngModel)]="observacion"></ion-textarea>
+    </ion-item>
+
+  </ion-row>
+
+  </ion-grid>
+
+  </ion-card>
+    <ion-button color="success" expand="block" fill="outline" type="submit" (click)="insertarRazon()">GUARDAR RAZON</ion-button>
+</ion-content>

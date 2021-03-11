@@ -11,11 +11,14 @@ import { finalize } from 'rxjs/operators';
 export class ListagoleadoresPage implements OnInit {
 combo_serie=[];
 combo_categoria=[];
+combo_equipo=[];
 goleadores=[];
 idserie:string;
 idcategoria:string;
+equipo:string;
+buscarJugador="";
 
- url="http://localhost/wsligapillaro/files/jugadores/";
+ url="http://192.168.1.11/wsligapillaro/files/jugadores/";
 
   constructor(private webServicePillaro:WsLigaPillaroService ) { }
 
@@ -40,15 +43,15 @@ idcategoria:string;
       }));
     }); */
     this.webServicePillaro.presentLoading().then(()=>{
-      this.webServicePillaro.comboCategoria( ).pipe(
+      this.webServicePillaro.comboE( ).pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
         }))
       .subscribe((data=>{
         let datos:any=data
         if(datos.status=="Ok"){
-          this.combo_categoria=datos.cateT;
-          console.log(this.combo_categoria);
+          this.combo_equipo=datos.cEqui;
+          console.log(this.combo_equipo);
        }else{
           this.webServicePillaro.presentToast(datos.mensaje);
         }
@@ -56,17 +59,17 @@ idcategoria:string;
     });
 
   }
-  cargaCategoria(){
+  cargaEquipo(){
     this.webServicePillaro.presentLoading().then(()=>{
-      this.webServicePillaro.comboCategoria( ).pipe(
+      this.webServicePillaro.comboE().pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
         }))
       .subscribe((data=>{
         let datos:any=data
         if(datos.status=="Ok"){
-          this.combo_categoria=datos.cateT;
-          console.log(this.combo_categoria);
+          this.combo_equipo=datos.cEqui;
+          console.log(this.combo_equipo);
        }else{
           this.webServicePillaro.presentToast(datos.mensaje);
         }
@@ -77,7 +80,7 @@ idcategoria:string;
   cargaGoleadores(){
 
     this.webServicePillaro.presentLoading().then(()=>{
-      this.webServicePillaro.Goleadores(this.idcategoria).pipe(
+      this.webServicePillaro.Goleadores(this.equipo).pipe(
         finalize(async () => {
             await this.webServicePillaro.loading.dismiss();
         }))
@@ -93,5 +96,7 @@ idcategoria:string;
       }));
     });
   }
-
+  buscar(evento){
+    this.buscarJugador=evento.detail.value;
+  }
 }

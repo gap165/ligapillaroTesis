@@ -4,7 +4,7 @@
       <ion-back-button text=" " defaultHref="/calendario"></ion-back-button>
   </ion-buttons>
   <ion-thumbnail slot="end"><img src="../assets/icon/logoLiga.png"></ion-thumbnail>
-    <ion-title size="undefined" style="font-family:Times" align="center">Ingreso del informe</ion-title>
+    <ion-title size="undefined" style="font-family:Times" align="center">Ingreso de informe</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -98,7 +98,7 @@
             {{item.nombre}}
           </ion-col>
           <ion-col  text-center  size="small">
-             81'
+             {{item.hora}}'
           </ion-col>
         </ion-row>
 
@@ -117,7 +117,7 @@
               {{item.nombre}}
           </ion-col>
           <ion-col  text-center  size="small">
-            81'
+            {{item.hora}}'
           </ion-col>
         </ion-row>
     </ion-col>
@@ -142,42 +142,43 @@
   <ion-row style="background-color: rgb(236, 250, 255);">
 
     <!-- faltas equipo 1 -->
-   <ion-col size="5">
+   <ion-col size="6">
     <ion-row  *ngFor="let item of falatsequipo1">
       <ion-col>
       
         <ion-row >
-          <ion-col  text-center size="small">
-            {{item.nombre}}
-          </ion-col>
-          <ion-col  text-center  size="small">
-              {{item.nombrefalta}}
-          </ion-col>
-          <ion-col  text-center  size="small">
-          8'
-        </ion-col>
+               
+      <ion-col  text-center size="small">
+          {{item.nombre}}
+      </ion-col>
+      <ion-col  text-center  size="small">
+        {{item.nombrefalta}}
+    </ion-col>
+      <ion-col  text-center  size="small">
+        {{item.hora}}'
+      </ion-col>
         </ion-row>
 
     </ion-col>
     </ion-row>
   </ion-col>
-  <ion-col size="2"></ion-col>
+  
 
 <!-- FALTAS EQUIPO 2 -->
-  <ion-col size="5">
+  <ion-col size="6">
     <ion-row>
       <ion-col>
       
         <ion-row  *ngFor="let item of faltasequipo2">
           <ion-col  text-center size="small">
             {{item.nombre}}
-          </ion-col>
-          <ion-col  text-center size="small">
-            {{item.nombrefalta}}
-          </ion-col>
-          <ion-col  text-center  size="small">
-            8'
-          </ion-col>
+        </ion-col>
+        <ion-col  text-center  size="small">
+          {{item.nombrefalta}}
+      </ion-col>
+        <ion-col  text-center  size="small">
+          {{item.hora}}'
+        </ion-col>
         </ion-row>
     </ion-col>
     </ion-row>
